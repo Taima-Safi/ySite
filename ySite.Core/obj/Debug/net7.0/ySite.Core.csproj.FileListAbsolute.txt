@@ -1,0 +1,12 @@
+C:\Users\USER\source\repos\ySite\ySite.Core\bin\Debug\net7.0\ySite.Core.deps.json
+C:\Users\USER\source\repos\ySite\ySite.Core\bin\Debug\net7.0\ySite.Core.dll
+C:\Users\USER\source\repos\ySite\ySite.Core\bin\Debug\net7.0\ySite.Core.pdb
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.AssemblyInfo.cs
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.dll
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\refint\ySite.Core.dll
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ySite.Core.pdb
+C:\Users\USER\source\repos\ySite\ySite.Core\obj\Debug\net7.0\ref\ySite.Core.dll

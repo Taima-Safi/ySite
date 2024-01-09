@@ -1,0 +1,14 @@
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.AssemblyInfo.cs
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\ySite\ySite.EF\bin\Debug\net7.0\ySite.EF.deps.json
+C:\Users\USER\source\repos\ySite\ySite.EF\bin\Debug\net7.0\ySite.EF.runtimeconfig.json
+C:\Users\USER\source\repos\ySite\ySite.EF\bin\Debug\net7.0\ySite.EF.dll
+C:\Users\USER\source\repos\ySite\ySite.EF\bin\Debug\net7.0\ySite.EF.pdb
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.dll
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\refint\ySite.EF.dll
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.pdb
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ySite.EF.genruntimeconfig.cache
+C:\Users\USER\source\repos\ySite\ySite.EF\obj\Debug\net7.0\ref\ySite.EF.dll

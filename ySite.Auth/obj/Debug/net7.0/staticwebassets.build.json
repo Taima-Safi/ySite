@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "AQYMAhSRb31C7NThI0WEtEq+sjh3r4hm9nNLqSZV7kc=",
+  "Source": "ySite.Auth",
+  "BasePath": "_content/ySite.Auth",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
