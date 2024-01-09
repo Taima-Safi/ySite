@@ -28,7 +28,7 @@ namespace ySite.Auth.Controllers
         }
 
         //this for test
-        [HttpGet("GetUSers")]
+        [HttpGet("GetUsers")]
         public IActionResult GetUSers()
         {
             return Ok(_userManager.Users.ToList());

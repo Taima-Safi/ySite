@@ -1,0 +1,78 @@
+﻿@page
+@{
+    ViewData["Title"] = "AddPost";
+}
+<form id="postForm" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required>
+    </div>
+    <div>
+        <label for="clientFile">File:</label>
+        <input type="file" id="clientFile" name="clientFile" accept=".jpg, .jpeg, .png">
+    </div>
+    <button type="submit">Add Post</button>
+</form>
+
+<div id="successMessage"></div>
+@*<script>
+    document.getElementById('postForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        try {
+            const response = await fetch('http://localhost:5080/api/Posts', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    // Add any necessary headers here (e.g., authorization token)
+                }
+            });
+
+            if (response.ok) {
+                // Post was added successfully
+                console.log('Post added successfully!');
+            } else {
+                // Error adding the post
+                console.error('Failed to add post.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>*@
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addPostForm = document.getElementById('addPostForm');
+        const successMessage = document.getElementById('successMessage');
+
+          document.getElementById('postForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+            // Your code to add a new post using an API call
+            const formData = new FormData(this);
+            try {
+                const response = await fetch('http://localhost:5080/api/Posts', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        // Add any necessary headers here (e.g., authorization token)
+                    }
+                });
+
+                if (response.ok) {
+                    // Post was added successfully
+                    console.log('Post added successfully!');
+                } else {
+                    // Error adding the post
+                    console.error('Failed to add post.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            // After successful addition
+            successMessage.innerText = 'Post added successfully!';
+            successMessage.style.color = 'green';
+        });
+    });
+</script>

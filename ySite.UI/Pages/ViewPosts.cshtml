@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>User Posts</title>
+</head>
+<body>
+    <h1>User Posts</h1>
+    <div id="postsContainer"></div>
+
+    <script>
+        // Make a request to fetch posts for a specific user
+        fetch('http://localhost:5080/api/Posts')
+            .then(response => response.json())
+            .then(data => {
+                const postsContainer = document.getElementById('postsContainer');
+
+                // Assuming data is an array of objects with description and image properties
+                // Iterate over each post and create HTML elements to display the description and image
+                data.forEach(post => {
+                    const description = post.Description;
+                    const imageURL = post.Image;
+
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('post');
+
+                    const descriptionElement = document.createElement('p');
+                    descriptionElement.textContent = description;
+
+                    const imageElement = document.createElement('img');
+                    imageElement.src = imageURL;
+                    imageElement.alt = 'Post Image';
+
+                    // Append the elements to the post container
+                    postElement.appendChild(descriptionElement);
+                    postElement.appendChild(imageElement);
+                    postsContainer.appendChild(postElement);
+                });
+            })
+            .catch(error => {
+                // Handle errors if any
+                console.error('Error fetching posts:', error);
+            });
+    </script>
+</body>
+</html>
