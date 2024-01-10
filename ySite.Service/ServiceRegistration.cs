@@ -17,6 +17,7 @@ using ySite.EF.DbContext;
 using ySite.EF.Entities;
 using ySite.Service.Authorization.Requirments;
 using ySite.Service.Authorization.Requirments.CommentRequirements;
+using ySite.Service.Authorization.Requirments.FriendShipRequirements;
 using ySite.Service.Authorization.Requirments.PostRequirements;
 using ySite.Service.Authorization.Requirments.ReactionRequirements;
 using ySite.Service.Interfaces;
@@ -163,6 +164,10 @@ namespace ySite.Service
                     await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Post));
                     await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Post));
                     await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Post));
+                    
+                    await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.FriendShip));
+                    await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.FriendShip));
+                    await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.FriendShip));
 
                 }
             }
@@ -228,6 +233,11 @@ namespace ySite.Service
                     policy.Combine(options.GetPolicy(Policies.DeleteReactionPolicy));
                 });
 
+                //FriendShip Policies
+                options.AddPolicy(Policies.DeleteFriendPolicy, policy =>
+                {
+                    policy.Requirements.Add(new DeleteFriendRequirements());
+                });
 
                 options.AddPolicy(Policies.GenericOwnerPolicy, policy =>
                 {
@@ -243,6 +253,8 @@ namespace ySite.Service
 
             //services.AddScoped<IAuthorizationHandler, EditReactionRequirementHandler> ();
             services.AddScoped<IAuthorizationHandler, DeleteReactionRequirementHandler> ();
+
+            services.AddScoped<IAuthorizationHandler, DeleteFriendRequirementHandler> ();
 
             services.AddScoped<IAuthorizationHandler, DeletePostRequirementHandler> ();
             services.AddScoped<IAuthorizationHandler, EditPostRequirementHandler> ();

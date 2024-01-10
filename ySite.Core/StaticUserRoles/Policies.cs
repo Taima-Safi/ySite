@@ -22,6 +22,9 @@ namespace ySite.Core.StaticUserRoles
         public const string DeleteReactionPolicy = "DeleteReactionPolicy";
 
 
+        public const string DeleteFriendPolicy = "DeleteFriendPolicy";
+
+
         public const string FullControlOrDeleteReactionPolicy = "FullControlOrDeleteReactionPolicy";
     }
 }

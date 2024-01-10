@@ -44,12 +44,19 @@ namespace ySite.EF.DbContext
                 .HasForeignKey(r => r.PostId)
                 .OnDelete(DeleteBehavior.Restrict); // Set the delete behavior to Restrict (NO ACTION)
 
-            //builder.Entity<ReactionModel>()
-            //    .HasOne(r => r.User)
-            //    .WithMany(p => p.Reactions)
-            //    .HasForeignKey(r => r.UserId);
-            //    //.OnDelete(DeleteBehavior.Restrict); // Set the delete behavior to Restrict (NO ACTION)
+            builder.Entity<FriendShipModel>()
+            .HasOne(fs => fs.User)
+            .WithMany()
+            .HasForeignKey(fs => fs.UserId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<FriendShipModel>()
+            .HasOne(fs => fs.Friend)
+            .WithMany()
+            .HasForeignKey(fs => fs.FriendId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<PostModel>().HasQueryFilter(c => !c.IsDeleted);
             builder.Entity<ReactionModel>().HasQueryFilter(c => !c.IsDeleted);

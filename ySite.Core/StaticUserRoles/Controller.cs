@@ -8,11 +8,10 @@ namespace ySite.Core.StaticUserRoles
 {
     public static class Contoller
     {
-        public const string Student = "Student";
-        public const string Teacher = "Teacher";
         public const string Reaction = "ReactionModel";
         public const string Comment = "CommentModel";
-        public const string Post = "Post";
+        public const string FriendShip = "FriendShipModel";
+        public const string Post = "PostModel";
     }
     //public static class Permissions
     //{

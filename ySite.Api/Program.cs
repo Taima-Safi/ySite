@@ -48,7 +48,7 @@ public class Program
         app.MapControllers();
 
         app.UseCors("AllowSpecificOrigin");
-      //  await app.SeedDataAsync();
+       // await app.SeedDataAsync();
 
         app.Run();
     }
