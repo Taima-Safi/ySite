@@ -38,12 +38,14 @@ namespace ySite.Service
             services.AddScoped<IReactionRepo, ReactionRepo>();
             services.AddScoped<ICommentRepo, CommentRepo>();
             services.AddScoped<IFriendShipRepo, FriendShipRepo>();
+            services.AddScoped<IReplayRepo, ReplayRepo>();
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IReactionService, ReactionService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IFriendShipService, FriendShipService>();
+            services.AddScoped<IReplayService, ReplayService>();
 
             return services;
         }

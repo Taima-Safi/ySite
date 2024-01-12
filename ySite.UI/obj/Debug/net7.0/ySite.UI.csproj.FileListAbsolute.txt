@@ -100,3 +100,4 @@ C:\Users\USER\source\repos\ySite\ySite.UI\bin\Debug\net7.0\Microsoft.Extensions.
 C:\Users\USER\source\repos\ySite\ySite.UI\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\USER\source\repos\ySite\ySite.UI\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\USER\source\repos\ySite\ySite.UI\bin\Debug\net7.0\Octopus.Client.dll
+C:\Users\USER\source\repos\ySite\ySite.UI\obj\Debug\net7.0\ySite.UI.MvcApplicationPartsAssemblyInfo.cs

@@ -59,7 +59,8 @@ namespace ySite.Service.Services
                 return commentR;
             }
             var comments = await _commentRepo.GetCommentsOnPost(postId);
-            if(comments == null)
+            //if(comments == null)
+            if(!comments.Any())
             {
                 commentR.Message = "No Comments on this post";
                 return commentR;
