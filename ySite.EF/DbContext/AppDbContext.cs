@@ -21,6 +21,7 @@ namespace ySite.EF.DbContext
         public DbSet<ReactionModel> Reactions { get; set; }
         public DbSet<CommentModel> Comments { get; set; }
         public DbSet<FriendShipModel> FriendShips { get; set; }
+        public DbSet<ReplayModel> Replays { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -62,6 +63,7 @@ namespace ySite.EF.DbContext
             builder.Entity<ReactionModel>().HasQueryFilter(c => !c.IsDeleted);
             builder.Entity<CommentModel>().HasQueryFilter(c => !c.IsDeleted);
             builder.Entity<ApplicationUser>().HasQueryFilter(c => !c.IsDeleted);
+            builder.Entity<ReplayModel>().HasQueryFilter(c => !c.IsDeleted);
             builder.Entity<FriendShipModel>().HasQueryFilter(c => c.Status != FStatus.Declined);
         }
     }

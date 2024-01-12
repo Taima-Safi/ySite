@@ -16,7 +16,8 @@ namespace ySite.EF.Entities
         public DateTime CreatedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public bool IsDeleted { get; set; } = false;
-
+        //Add LikesCount prop
+        //Add RepliesCount  count prop
         public ApplicationUser User { get; set; }
         public PostModel Post { get; set; }
 

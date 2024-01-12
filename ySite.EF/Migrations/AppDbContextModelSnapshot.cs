@@ -308,7 +308,7 @@ namespace ySite.EF.Migrations
                     b.ToTable("FriendShips");
                 });
 
-            modelBuilder.Entity("ySite.EF.Entities.Post", b =>
+            modelBuilder.Entity("ySite.EF.Entities.PostModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -379,6 +379,48 @@ namespace ySite.EF.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reactions");
+                });
+
+            modelBuilder.Entity("ySite.EF.Entities.ReplayModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReplayComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Replays");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -471,7 +513,7 @@ namespace ySite.EF.Migrations
 
             modelBuilder.Entity("ySite.EF.Entities.CommentModel", b =>
                 {
-                    b.HasOne("ySite.EF.Entities.Post", "Post")
+                    b.HasOne("ySite.EF.Entities.PostModel", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -499,7 +541,7 @@ namespace ySite.EF.Migrations
                     b.HasOne("ySite.EF.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Friend");
@@ -507,7 +549,7 @@ namespace ySite.EF.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ySite.EF.Entities.Post", b =>
+            modelBuilder.Entity("ySite.EF.Entities.PostModel", b =>
                 {
                     b.HasOne("ySite.EF.Entities.ApplicationUser", "User")
                         .WithMany("Posts")
@@ -520,7 +562,7 @@ namespace ySite.EF.Migrations
 
             modelBuilder.Entity("ySite.EF.Entities.ReactionModel", b =>
                 {
-                    b.HasOne("ySite.EF.Entities.Post", "Post")
+                    b.HasOne("ySite.EF.Entities.PostModel", "Post")
                         .WithMany("Reactions")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -537,6 +579,25 @@ namespace ySite.EF.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ySite.EF.Entities.ReplayModel", b =>
+                {
+                    b.HasOne("ySite.EF.Entities.CommentModel", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ySite.EF.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ySite.EF.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Posts");
@@ -544,7 +605,7 @@ namespace ySite.EF.Migrations
                     b.Navigation("Reactions");
                 });
 
-            modelBuilder.Entity("ySite.EF.Entities.Post", b =>
+            modelBuilder.Entity("ySite.EF.Entities.PostModel", b =>
                 {
                     b.Navigation("Comments");
 

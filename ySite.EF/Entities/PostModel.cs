@@ -19,6 +19,8 @@ namespace ySite.EF.Entities
         public DateTime? DeletedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; } = false;
+        //Add LikesCount prop
+        //Add commentsCount prop
         public ICollection<ReactionModel> Reactions { get; set; } 
         public ICollection<CommentModel> Comments { get; set; } 
     }

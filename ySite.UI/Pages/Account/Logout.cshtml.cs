@@ -12,10 +12,10 @@ namespace ySite.UI.Pages.Account
         {
             _authService = authService;
         } 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            await _authService.Logout();
-            return RedirectToPage("/Index");
-        }
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    await _authService.Logout();
+        //    return RedirectToPage("/Index");
+        //}
     }
 }
