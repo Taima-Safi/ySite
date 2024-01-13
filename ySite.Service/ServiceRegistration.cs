@@ -20,6 +20,7 @@ using ySite.Service.Authorization.Requirments.CommentRequirements;
 using ySite.Service.Authorization.Requirments.FriendShipRequirements;
 using ySite.Service.Authorization.Requirments.PostRequirements;
 using ySite.Service.Authorization.Requirments.ReactionRequirements;
+using ySite.Service.Authorization.Requirments.ReplayRequirements;
 using ySite.Service.Interfaces;
 using ySite.Service.Services;
 
@@ -113,65 +114,73 @@ namespace ySite.Service
             return services;
         }
 
-        public static async Task<IApplicationBuilder> SeedDataAsync(this WebApplication app)
+        public static async Task<IApplicationBuilder> SeedDataAsync(this WebApplication app, string contName)
         {
             using (var scope = app.Services.CreateScope())
             {
 
-                var cntx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+               // var cntx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                await cntx.Database.EnsureDeletedAsync();
-                if (await cntx.Database.EnsureCreatedAsync())
-                {
-                    // Creating Role Entities
-                    var adminRole = new IdentityRole(UserRoles.ADMIN);
-                    var ownerRole = new IdentityRole(UserRoles.OWNER);
-                    var userRole = new IdentityRole(UserRoles.USER);
+                //await cntx.Database.EnsureDeletedAsync();
+                //if (await cntx.Database.EnsureCreatedAsync())
+                //{
+                //    // Creating Role Entities
+                //    var adminRole = new IdentityRole(UserRoles.ADMIN);
+                //    var ownerRole = new IdentityRole(UserRoles.OWNER);
+                //    var userRole = new IdentityRole(UserRoles.USER);
 
-                    // Adding Roles
-                    await roleManager.CreateAsync(adminRole);
-                    await roleManager.CreateAsync(ownerRole);
-                    await roleManager.CreateAsync(userRole);
+                //// Adding Roles
+                //await roleManager.CreateAsync(adminRole);
+                //await roleManager.CreateAsync(ownerRole);
+                //await roleManager.CreateAsync(userRole);
 
-                    // Creating User Entities
-                    var adminUser = new ApplicationUser() { FirstName = "a", LastName = "b", UserName = "adminA", Email = "adminA@test.com" };
-                    var ownerUser = new ApplicationUser() { FirstName = "a", LastName = "b", UserName = "ownerA", Email = "ownerA@test.com" };
-                    var user = new ApplicationUser() { FirstName = "a", LastName = "b", UserName = "user", Email = "user@test.com" };
+                //// Creating User Entities
+                //var adminUser = new ApplicationUser() { FirstName = "a", LastName = "b", UserName = "adminA", Email = "adminA@test.com" };
+                //var ownerUser = new ApplicationUser() { FirstName = "a", LastName = "b", UserName = "ownerA", Email = "ownerA@test.com" };
+                //var user = new ApplicationUser() { FirstName = "a", LastName = "b", UserName = "user", Email = "user@test.com" };
 
-                    // Adding Users with Password
-                    await userManager.CreateAsync(adminUser, "123");
-                    await userManager.CreateAsync(ownerUser, "123");
-                    await userManager.CreateAsync(user, "123");
+                //// Adding Users with Password
+                //await userManager.CreateAsync(adminUser, "123");
+                //await userManager.CreateAsync(ownerUser, "123");
+                //await userManager.CreateAsync(user, "123");
 
 
-                    // Adding Roles to Users
-                    await userManager.AddToRoleAsync(adminUser, UserRoles.ADMIN);
-                    await userManager.AddToRoleAsync(ownerUser, UserRoles.OWNER);
-                    await userManager.AddToRoleAsync(user, UserRoles.USER);
+                //// Adding Roles to Users
+                //await userManager.AddToRoleAsync(adminUser, UserRoles.ADMIN);
+                //await userManager.AddToRoleAsync(ownerUser, UserRoles.OWNER);
+                //await userManager.AddToRoleAsync(user, UserRoles.USER);
 
-                    //// Ading Claims to Users
-                    //await userManager.AddClaimAsync(adminUser, GetAdminClaims(Contoller.Post));
-                    //await userManager.AddClaimAsync(ownerUser, GetOwnerClaims(Contoller.Post));
-                    //await userManager.AddClaimAsync(user, GetUserClaims(Contoller.Post));
+                ////// Ading Claims to Users
+                ////await userManager.AddClaimAsync(adminUser, GetAdminClaims(Contoller.Post));
+                ////await userManager.AddClaimAsync(ownerUser, GetOwnerClaims(Contoller.Post));
+                ////await userManager.AddClaimAsync(user, GetUserClaims(Contoller.Post));
 
-                    await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Comment));
-                    await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Comment));
-                    await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Comment));
-                
-                    await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Reaction));
-                    await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Reaction));
-                    await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Reaction));
-                
-                    await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Post));
-                    await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Post));
-                    await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Post));
-                    
-                    await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.FriendShip));
-                    await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.FriendShip));
-                    await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.FriendShip));
+                //await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Comment));
+                //await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Comment));
+                //await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Comment));
 
-                }
+                //await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Reaction));
+                //await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Reaction));
+                //await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Reaction));
+
+                //await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.Post));
+                //await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.Post));
+                //await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.Post));
+
+                //await roleManager.AddClaimAsync(adminRole, GetAdminClaims(Contoller.FriendShip));
+                //await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(Contoller.FriendShip));
+                //await roleManager.AddClaimAsync(userRole, GetUserClaims(Contoller.FriendShip)); 
+
+                var adminRole = await roleManager.FindByNameAsync(UserRoles.ADMIN);
+                var ownerRole = await roleManager.FindByNameAsync(UserRoles.OWNER);
+                var userRole = await roleManager.FindByNameAsync(UserRoles.USER);
+
+                await roleManager.AddClaimAsync(adminRole, GetAdminClaims(contName));
+                    await roleManager.AddClaimAsync(ownerRole, GetOwnerClaims(contName));
+                    await roleManager.AddClaimAsync(userRole, GetUserClaims(contName));
+
+                //}
             }
             return app;
         }
@@ -240,6 +249,17 @@ namespace ySite.Service
                 {
                     policy.Requirements.Add(new DeleteFriendRequirements());
                 });
+                
+                //Replay Policies
+                options.AddPolicy(Policies.EditReplayPolicy, policy =>
+                {
+                    policy.Requirements.Add(new EditReplayRequirements());
+                });
+                
+                options.AddPolicy(Policies.DeleteReplayPolicy, policy =>
+                {
+                    policy.Requirements.Add(new DeleteReplayRequirements());
+                });
 
                 options.AddPolicy(Policies.GenericOwnerPolicy, policy =>
                 {
@@ -257,6 +277,9 @@ namespace ySite.Service
             services.AddScoped<IAuthorizationHandler, DeleteReactionRequirementHandler> ();
 
             services.AddScoped<IAuthorizationHandler, DeleteFriendRequirementHandler> ();
+
+            services.AddScoped<IAuthorizationHandler, EditReplayRequirementHandler> ();
+            services.AddScoped<IAuthorizationHandler, DeleteReplayRequirementHandler> ();
 
             services.AddScoped<IAuthorizationHandler, DeletePostRequirementHandler> ();
             services.AddScoped<IAuthorizationHandler, EditPostRequirementHandler> ();

@@ -12,6 +12,7 @@ namespace ySite.Core.StaticUserRoles
         public const string Comment = "CommentModel";
         public const string FriendShip = "FriendShipModel";
         public const string Post = "PostModel";
+        public const string Replay = "ReplayModel";
     }
     //public static class Permissions
     //{

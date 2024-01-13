@@ -24,6 +24,9 @@ namespace ySite.Core.StaticUserRoles
 
         public const string DeleteFriendPolicy = "DeleteFriendPolicy";
 
+        public const string EditReplayPolicy = "EditReplayPolicy";
+        public const string DeleteReplayPolicy = "DeleteReplayPolicy";
+
 
         public const string FullControlOrDeleteReactionPolicy = "FullControlOrDeleteReactionPolicy";
     }

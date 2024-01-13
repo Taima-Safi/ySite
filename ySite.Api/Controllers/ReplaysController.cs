@@ -39,7 +39,8 @@ namespace ySite.Api.Controllers
         }
         
         [HttpPatch]
-        public async Task<IActionResult> EditReplayAsync([FromForm] EditReplayDto dto)
+        [Authorize(Policy = Policies.EditReplayPolicy)]
+        public async Task<IActionResult> EditReplayAsync([FromForm] EditReplayDto dto, int replayId)
         {
             var userId = GetUserId();
             return Ok(await _replayService.EditReplay(dto, userId));
@@ -47,7 +48,7 @@ namespace ySite.Api.Controllers
 
 
         [HttpDelete]
-        //[Authorize(Policy = Policies.DeleteCommentPolicy)]
+        [Authorize(Policy = Policies.DeleteReplayPolicy)]
         public async Task<IActionResult> DeleteReplayAsync(int replayId)
         {
             var userId = GetUserId();

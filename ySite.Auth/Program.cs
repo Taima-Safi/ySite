@@ -50,7 +50,7 @@ public class Program
         app.MapControllers();
 
         app.UseCors("AllowSpecificOrigin");
-      //  await app.SeedDataAsync();
+      // await app.SeedDataAsync(Contoller.Replay);
 
         app.Run();
     }
