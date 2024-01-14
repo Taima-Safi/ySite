@@ -9,14 +9,16 @@ namespace ySite.Service.Services
     {
         private readonly ICommentRepo _commentRepo;
         private readonly IPostRepo _postRepo;
+        private readonly IReplayRepo _replayRepo;
         private readonly IAuthRepo _authRepo;
 
         public CommentService(ICommentRepo commentRepo, IPostRepo postRepo,
-            IAuthRepo authRepo)
+            IAuthRepo authRepo, IReplayRepo replayRepo)
         {
             _commentRepo = commentRepo;
             _postRepo = postRepo;
             _authRepo = authRepo;
+            _replayRepo = replayRepo;
         }
 
         public async Task<UserCommentsResultDto> GetUserComments(string userId)
@@ -43,7 +45,8 @@ namespace ySite.Service.Services
                 ClientFile = c.Image,
                 CreatedOn = c.CreatedOn,
                 UserId = c.UserId,
-                Id = c.Id
+                Id = c.Id,
+                ReplaisCount = c.RepliesCount,
             }).ToList();
 
             return userCommentsR;
@@ -74,6 +77,7 @@ namespace ySite.Service.Services
                 PostId = c.PostId,
                 UserId = c.UserId,
                 CreatedOn = c.CreatedOn,
+                ReplaisCount = c.RepliesCount,
 
             }).ToList();
             return commentR;
@@ -125,6 +129,7 @@ namespace ySite.Service.Services
                 commentR.Comment = commented.Comment;
                 commentR.CreatedOn = commented.CreatedOn;
                 commentR.ClientFile = commented.Image;
+                commentR.ReplaisCount = commented.RepliesCount;
 
                 post.CommentsCount += 1;
                 _postRepo.updatePost(post);
@@ -145,13 +150,22 @@ namespace ySite.Service.Services
             if (comment is null)
                 return "Invalid Comment";
 
+            var replies = await _replayRepo.GetReplaysOnComment(commentId);
+            if(replies is not null)
+            { 
+                foreach(var replay in replies)
+                {
+                    replay.IsDeleted = true;
+                    replay.DeletedOn = DateTime.UtcNow;
+                    _replayRepo.updateReplay(replay);
+                }
+            }
             var post = await _postRepo.GetPostAsync(comment.PostId);
             post.CommentsCount -= 1;
 
             comment.IsDeleted = true;
             comment.DeletedOn = DateTime.UtcNow;
             _commentRepo.updateComment(comment);
-
 
             _postRepo.updatePost(post);
 

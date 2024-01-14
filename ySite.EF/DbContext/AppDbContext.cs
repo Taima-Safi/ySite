@@ -37,7 +37,7 @@ namespace ySite.EF.DbContext
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PostId)
                 .OnDelete(DeleteBehavior.NoAction); // Change to Restrict or other appropriate action
-
+            
 
             builder.Entity<ReactionModel>()
                 .HasOne(r => r.Post)

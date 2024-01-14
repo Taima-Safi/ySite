@@ -20,7 +20,8 @@ namespace Repository.Repos
 
         public async Task<List<PostModel>> GetPostsAsync(ApplicationUser user)
         {
-            var posts = await _context.Posts.Where(p => p.UserId == user.Id).ToListAsync();
+            var posts = await _context.Posts.Include(p => p.Reactions)
+                .Where(p => p.UserId == user.Id).ToListAsync();
 
             return posts;
         }

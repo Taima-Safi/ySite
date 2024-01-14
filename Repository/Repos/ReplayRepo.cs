@@ -2,7 +2,7 @@
 using Repository.RepoInterfaces;
 using ySite.EF.DbContext;
 using ySite.EF.Entities;
-using System.Data.Entity;
+//using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repos

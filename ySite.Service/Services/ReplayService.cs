@@ -94,6 +94,9 @@ namespace ySite.Service.Services
                 replayR.CommentId = replayed.CommentId;
                 replayR.UserId = replayed.UserId;
 
+                comment.RepliesCount++;
+                _commentRepo.updateComment(comment);
+
                 return replayR;
             }
             replayR.Message = "Con not replay on this comment";
@@ -162,10 +165,14 @@ namespace ySite.Service.Services
             if (replay is null)
                 return "Invalid Replay Commented";
 
+            var comment = await _commentRepo.GetCommentAsync(replay.CommentId);
+            comment.RepliesCount--;
+
             replay.IsDeleted = true;
             replay.DeletedOn = DateTime.Now;
 
             _replayRepo.updateReplay(replay);
+            _commentRepo.updateComment(comment);
 
             return "This replay deleted...";
         }

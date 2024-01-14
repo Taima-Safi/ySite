@@ -41,18 +41,24 @@ namespace ySite.Service.Services
                 return userPostsR;
             }
             var posts = await _postRepo.GetPostsAsync(user);
-            if(posts is null || !posts.Any())
+
+            if (posts is null || !posts.Any())
             {
                 userPostsR.Message = "This user does not have any posts";
                 return userPostsR;
             }
-            userPostsR.Message = $"The Posts for {user.FirstName} are these....";
+            userPostsR.Message = $"The Posts for {user.FirstName} user are these....";
             userPostsR.Posts = posts.Select(post => new UserPostsDto
             {
+                Id = post.Id,
                 Description = post.Description,
                 Image = post.Image,
                 CommentsCount = post.CommentsCount,
-                ReactsCount = post.ReactsCount
+                ReactsCount = post.ReactsCount,
+                LikeCount = post.Reactions?.Count(r => r.Reaction == ReactionType.Like)?? 0,
+                LoveCount = post.Reactions?.Count(r => r.Reaction == ReactionType.Love)?? 0,
+                SadCount = post.Reactions?.Count(r => r.Reaction == ReactionType.Sad) ?? 0,
+                AngryCount = post.Reactions?.Count(r => r.Reaction == ReactionType.Angry)?? 0
             }).ToList();
 
             return userPostsR;

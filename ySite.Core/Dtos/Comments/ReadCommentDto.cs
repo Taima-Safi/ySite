@@ -15,6 +15,7 @@ namespace ySite.Core.Dtos.Comments
         public byte[]? ClientFile { get; set; }
         public string UserId { get; set; }
         public int PostId { get; set; }
+        public int ReplaisCount { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }

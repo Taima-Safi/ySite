@@ -21,6 +21,7 @@ namespace ySite.EF.Entities
         public bool IsDeleted { get; set; } = false;
         public int ReactsCount { get; set; }
         public int CommentsCount { get; set; }
+
         public ICollection<ReactionModel> Reactions { get; set; } 
         public ICollection<CommentModel> Comments { get; set; } 
     }
