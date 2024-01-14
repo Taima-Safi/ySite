@@ -92,9 +92,8 @@ namespace ySite.Service.Services
                 {
                     r.IsDeleted = true;
                     r.DeletedOn = DateTime.UtcNow;
-                    //var reactUpdated = _reactionRepo.updateReaction(reaction);
-                    // reactionR.Message = "Updated";
-                    // return reactionR;
+                    post.ReactsCount--;
+
                 }
             }
             var reacted = await _reactionRepo.AddReact(reaction);
@@ -103,6 +102,9 @@ namespace ySite.Service.Services
                 reactionR.Message = "Cannot React On this Post";
                 return reactionR;
             }
+            post.ReactsCount++;
+            _postRepo.updatePost(post);
+
             reactionR.Message = $"Reacted on {user.FirstName} Post successfuly..";
             reactionR.Reaction = dto.Reaction;
             reactionR.UserId = userId;
@@ -119,10 +121,14 @@ namespace ySite.Service.Services
             var reaction = await _reactionRepo.GetReactionOfUserOnPost(postId, userId);
             if (reaction is null)
                 return "Invalid reaction";
+            var post = await _postRepo.GetPostAsync(reaction.PostId);
 
             reaction.IsDeleted = true;
             reaction.DeletedOn = DateTime.UtcNow;
+            post.ReactsCount--;
+
             _reactionRepo.updateReaction(reaction);
+            _postRepo.updatePost(post);
 
             return "this Reaction deleted ...";
         }
@@ -136,10 +142,14 @@ namespace ySite.Service.Services
             var reaction = await _reactionRepo.GetReaction(reactId);
             if (reaction is null)
                 return "Invalid reaction";
+            var post = await _postRepo.GetPostAsync(reaction.PostId);
 
             reaction.IsDeleted = true;
             reaction.DeletedOn = DateTime.UtcNow;
+            post.ReactsCount--;
+
             _reactionRepo.updateReaction(reaction);
+            _postRepo.updatePost(post);
 
             return "this Reaction deleted ...";
         }

@@ -11,6 +11,7 @@ namespace ySite.Core.Dtos.Post
     {
         public string Description { get; set; }
         public byte[]? Image { get; set; }
-        //public string? UserId { get; set; }
+        public int CommentsCount { get; set; }
+        public int ReactsCount { get; set; }
     }
 }

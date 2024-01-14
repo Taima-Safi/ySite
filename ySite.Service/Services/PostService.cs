@@ -50,7 +50,9 @@ namespace ySite.Service.Services
             userPostsR.Posts = posts.Select(post => new UserPostsDto
             {
                 Description = post.Description,
-                Image = post.Image
+                Image = post.Image,
+                CommentsCount = post.CommentsCount,
+                ReactsCount = post.ReactsCount
             }).ToList();
 
             return userPostsR;

@@ -96,3 +96,4 @@ C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\Octopus.Client.dll
+C:\Users\USER\source\repos\ySite\ySite.Auth\obj\Debug\net7.0\ySite.Auth.MvcApplicationPartsAssemblyInfo.cs

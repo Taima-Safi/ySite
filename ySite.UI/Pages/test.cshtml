@@ -1,0 +1,63 @@
+﻿@page
+
+<div id="replays-container"></div>
+
+<script>
+    // JavaScript code
+    async function fetchData(commentId) {
+      try {
+            const response = await fetch(`http://localhost:5080/api/Replays/getReplaysOnComment?commentId=${1}`);
+        const data = await response.json();
+
+        // Assuming data is an array of objects with 'image' and 'description' properties
+        displayData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+    // Define the parseJwt function
+function parseJwt(token) {
+    try {
+        // Decode the token and return the payload
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        // Handle errors, e.g., if the token is not in the expected format
+        console.error('Error parsing JWT:', e);
+        return null;
+    }
+}
+
+// Now you can use parseJwt in your code
+function fetchUserDetails() {
+    const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoib3duZXJBIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIwNzIwODMzNi04NWRiLTRmMDUtOWU2ZC1lNzcwNzY4ZTY3MDUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJPV05FUiIsIkNvbW1lbnRNb2RlbCI6WyIxIiwiMiIsIjMiLCI0Il0sIlJlYWN0aW9uTW9kZWwiOlsiMSIsIjIiLCIzIiwiNCJdLCJQb3N0TW9kZWwiOlsiMSIsIjIiLCIzIiwiNCJdLCJGcmllbmRTaGlwTW9kZWwiOlsiMSIsIjIiLCIzIiwiNCJdLCJSZXBsYXlNb2RlbCI6WyIxIiwiMiIsIjMiLCI0Il0sImV4cCI6MTcwNTEwODgxMCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MDMyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.9IwbE3EaqiErrEwMBACve0goJ88jp9ScYOURHPWkTNBjdGaLXYOJ-OUMS0QxpfM2qsDd3S27RmZ4fnjLGUbtlA"// get your token from somewhere;
+    const decodedToken = parseJwt(token);
+    
+    // Rest of your code...
+}
+
+    function displayData(data) {
+        const container = document.getElementById('replays-container');
+
+        // Check if data is an object (single entity)
+        if (typeof data === 'object') {
+            const imageElement = document.createElement('img');
+            imageElement.src = data.clientFile; // Assuming 'clientFile' is the property for the image URL or base64 data
+            container.appendChild(imageElement);
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = data.replay;
+            container.appendChild(descriptionElement);
+        } else {
+            // Handle the case where data is not an object or unexpected format
+            console.error('Data is not a single entity:', data);
+        }
+    }
+    // Call fetchData with the desired commentId
+    fetchData(123); // Replace 123 with the actual commentId
+</script>

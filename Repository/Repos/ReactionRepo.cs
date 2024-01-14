@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.RepoInterfaces;
-using System.Data.Entity;
 using ySite.EF.DbContext;
 using ySite.EF.Entities;
 
@@ -38,7 +37,6 @@ namespace Repository.Repos
         public async Task<List<ReactionModel>> GetReactionsOnPost(int postId)
         {
             var reactions = await _context.Reactions.Where(r => r.PostId == postId).ToListAsync();
-            //var user = await _userManager.FindByNameAsync(userId);
             return reactions;
         }
         public async Task<ReactionModel> AddReact(ReactionModel model)

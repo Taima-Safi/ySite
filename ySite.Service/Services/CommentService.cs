@@ -126,6 +126,9 @@ namespace ySite.Service.Services
                 commentR.CreatedOn = commented.CreatedOn;
                 commentR.ClientFile = commented.Image;
 
+                post.CommentsCount += 1;
+                _postRepo.updatePost(post);
+
                 return commentR;
             }
             commentR.Message = "Can not Comment!..";
@@ -142,11 +145,18 @@ namespace ySite.Service.Services
             if (comment is null)
                 return "Invalid Comment";
 
+            var post = await _postRepo.GetPostAsync(comment.PostId);
+            post.CommentsCount -= 1;
+
             comment.IsDeleted = true;
             comment.DeletedOn = DateTime.UtcNow;
             _commentRepo.updateComment(comment);
 
+
+            _postRepo.updatePost(post);
+
             return "this comment deleted ...";
         }
+
     }
 }

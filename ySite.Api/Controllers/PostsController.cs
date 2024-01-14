@@ -21,8 +21,7 @@ namespace ySite.Api.Controllers
             _postservice = postservice;
         }
 
-        [HttpGet("GetPosts")]
-        [Authorize(Policy = Policies.GenericOwnerPolicy)]
+        [HttpGet("GetUserPosts")]
         public async Task<IActionResult> GetPostsAsync()
         {
             var userId = GetUserId();
