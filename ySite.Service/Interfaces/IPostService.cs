@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ySite.Core.Helper;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace ySite.Service.Interfaces
 {
     public interface IPostService
     {
-        Task<bool> AddPost(PostDto dto, string userId);
+        Task<string> AddPost(PostDto dto, string userId);
         Task<UserPostsResultDto> GetUserPosts(string userId);
         Task<string> DeletePost(int postId, string userId);
         Task<string> EditPost(UpdatePostDto dto, string userId);

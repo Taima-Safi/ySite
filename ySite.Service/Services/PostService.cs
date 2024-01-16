@@ -9,11 +9,13 @@ using ySite.Core.Dtos.Posts;
 using ySite.Core.StaticFiles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
+using ySite.Core.Helper;
 
 namespace ySite.Service.Services
 {
     public class PostService : IPostService
     {
+        private readonly IStaticService _staticService;
         private readonly IPostRepo _postRepo;
         private readonly IAuthRepo _authRepo;
         private readonly IReactionRepo _reactionRepo;
@@ -24,7 +26,7 @@ namespace ySite.Service.Services
 
         public PostService(IPostRepo postRepo, IAuthRepo authRepo,
             IHttpContextAccessor httpContextAccessor, IReactionRepo reactionRepo,
-            ICommentRepo commentRepo, IHostingEnvironment host)
+            ICommentRepo commentRepo, IHostingEnvironment host, IStaticService staticService = null)
         {
             _postRepo = postRepo;
             _authRepo = authRepo;
@@ -33,6 +35,7 @@ namespace ySite.Service.Services
             _commentRepo = commentRepo;
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
+            _staticService = staticService;
         }
 
         public async Task<UserPostsResultDto> GetUserPosts(string userId)
@@ -73,33 +76,57 @@ namespace ySite.Service.Services
             return userPostsR;
         }
 
-        public async Task<bool> AddPost(PostDto dto, string userId)
+        public async Task<string> AddPost(PostDto dto, string userId)
         {
             if (dto == null || userId == null || (dto.Description == null && dto.ClientFile == null))
             {
-                return false;
+                return "Invalid Value";
             }
             var post = new PostModel();
             post.UserId = userId;
+            post.CreatedOn = DateTime.Now;
             if (dto.Description != null)
                 post.Description = dto.Description;
-
             string fileName = string.Empty;
+
             if (dto.ClientFile != null)
             {
-                string myUpload = Path.Combine(_imagepath, "postsImages");
-                fileName = dto.ClientFile.FileName;
-                string fullPath = Path.Combine(myUpload, fileName);
+                var result = _staticService.AllowUplaod(dto.ClientFile);
+                if (result.IsValid)
+                {
+                    string myUpload = Path.Combine(_imagepath, "postsImages");
+                    fileName = dto.ClientFile.FileName;
+                    string fullPath = Path.Combine(myUpload, fileName);
 
-                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
-                post.Image = fileName;
+                    dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    post.Image = fileName;
+                }
+                else
+                {
+                    return result.ErrorMessage;
+                }
             }
 
             if (await _postRepo.addPostAsync(post))
-                return true;
+                return "Added successfuly";
 
-            return false;
+            return "Can not add this post";
         }
+
+        //private ValidationResult AllowUplaod(IFormFile? ClientFile)
+        //{
+        //    if (ClientFile.Length > FilesSettings.MaxFileSizeInBytes)
+                
+        //        return ValidationResult.Fail($"The Uplaoded image exceeds the maximum allowed size of {FilesSettings.MaxFileSizeInBytes / (1024 * 1024)} MB.");
+
+        //    var allowedExtensions =FilesSettings.AllowedExtensions.Split(',');
+        //    var fileExtension = Path.GetExtension(ClientFile.FileName).ToLower();
+
+        //    if (!allowedExtensions.Contains(fileExtension))
+        //        return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.AllowedExtensions}.");
+
+        //    return ValidationResult.Success();
+        //}
 
         public async Task<string> EditPost(UpdatePostDto dto, string userId)
         {

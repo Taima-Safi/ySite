@@ -9,6 +9,7 @@ namespace ySite.Service.Services
 {
     public class CommentService : ICommentService
     {
+        private readonly IStaticService _staticService;
         private readonly ICommentRepo _commentRepo;
         private readonly IPostRepo _postRepo;
         private readonly IReplayRepo _replayRepo;
@@ -17,7 +18,8 @@ namespace ySite.Service.Services
         private readonly string _imagepath;
 
         public CommentService(ICommentRepo commentRepo, IPostRepo postRepo,
-            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host)
+            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host,
+            IStaticService staticService = null)
         {
             _commentRepo = commentRepo;
             _postRepo = postRepo;
@@ -25,6 +27,7 @@ namespace ySite.Service.Services
             _replayRepo = replayRepo;
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
+            _staticService = staticService;
         }
 
         public async Task<UserCommentsResultDto> GetUserComments(string userId)
@@ -121,12 +124,21 @@ namespace ySite.Service.Services
             string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
-                string myUpload = Path.Combine(_imagepath, "commentsImages");
-                fileName = dto.ClientFile.FileName;
-                string fullPath = Path.Combine(myUpload, fileName);
+                var result = _staticService.AllowUplaod(dto.ClientFile);
+                if(result.IsValid)
+                {
+                    string myUpload = Path.Combine(_imagepath, "commentsImages");
+                    fileName = dto.ClientFile.FileName;
+                    string fullPath = Path.Combine(myUpload, fileName);
 
-                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
-                comment.Image = fileName;
+                    dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    comment.Image = fileName;
+                }
+                else
+                {
+                    commentR.Message = result.ErrorMessage;
+                    return commentR;
+                }
             }
             var commented = await _commentRepo.addCommentAsync(comment);
             if (commented != null)
