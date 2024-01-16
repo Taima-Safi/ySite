@@ -44,18 +44,10 @@ namespace Repository.Repos
             return null;
         }
 
-        public void updateComment(CommentModel comm)
+        public void updateComment(CommentModel comment)
         {
-
-            try
-            {
-                _context.Comments.Update(comm);
-                _context.SaveChanges();
-            }
-            catch
-            {
-                throw new ArgumentException("Can't update this item");
-            }
+            _context.Comments.Update(comment);
+            _context.SaveChanges();
         }
     }
 }

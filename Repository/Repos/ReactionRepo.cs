@@ -50,16 +50,8 @@ namespace Repository.Repos
 
         public void updateReaction(ReactionModel react)
         {
-
-            try
-            {
-                _context.Reactions.Update(react);
-                _context.SaveChanges();
-            }
-            catch
-            {
-                throw new ArgumentException("Can't update this item");
-            }
+            _context.Reactions.Update(react);
+            _context.SaveChanges();
         }
     }
 }

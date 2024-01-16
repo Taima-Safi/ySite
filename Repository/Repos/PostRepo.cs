@@ -39,18 +39,9 @@ namespace Repository.Repos
 
         public void updatePost(PostModel p)
         {
-
-            try
-            {
-                _context.Posts.Update(p);
-                _context.SaveChanges();
-            }
-            catch
-            {
-                throw new ArgumentException("Can't update this item");
-            }
+                //_context.Posts.Where(p => p.Id == p.Id).ExecuteUpdateAsync(p => p.SetProperty(p => p.IsDeleted, true));
+            _context.Posts.Update(p);
+            _context.SaveChanges();
         }
-
-
     }
 }
