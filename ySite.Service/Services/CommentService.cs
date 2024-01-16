@@ -1,5 +1,7 @@
-﻿using Repository.RepoInterfaces;
+﻿using Microsoft.AspNetCore.Hosting;
+using Repository.RepoInterfaces;
 using ySite.Core.Dtos.Comments;
+using ySite.Core.StaticFiles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
 
@@ -11,14 +13,18 @@ namespace ySite.Service.Services
         private readonly IPostRepo _postRepo;
         private readonly IReplayRepo _replayRepo;
         private readonly IAuthRepo _authRepo;
+        private readonly IHostingEnvironment _host;
+        private readonly string _imagepath;
 
         public CommentService(ICommentRepo commentRepo, IPostRepo postRepo,
-            IAuthRepo authRepo, IReplayRepo replayRepo)
+            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host)
         {
             _commentRepo = commentRepo;
             _postRepo = postRepo;
             _authRepo = authRepo;
             _replayRepo = replayRepo;
+            _host = host;
+            _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
         }
 
         public async Task<UserCommentsResultDto> GetUserComments(string userId)
@@ -42,7 +48,7 @@ namespace ySite.Service.Services
                 Message = $"Comments of {c.User.FirstName} : ",
                 Comment = c.Comment,
                 PostId = c.PostId,
-                ClientFile = c.Image,
+                Image = c.Image,
                 CreatedOn = c.CreatedOn,
                 UserId = c.UserId,
                 Id = c.Id,
@@ -73,7 +79,7 @@ namespace ySite.Service.Services
             {
                 Id = c.Id,
                 Comment = c.Comment,
-                ClientFile = c.Image,
+                Image = c.Image,
                 PostId = c.PostId,
                 UserId = c.UserId,
                 CreatedOn = c.CreatedOn,
@@ -112,12 +118,15 @@ namespace ySite.Service.Services
             comment.UserId = userId;
             comment.CreatedOn = DateTime.Now;
 
+            string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
-                using var datastream = new MemoryStream();
-                await dto.ClientFile.CopyToAsync(datastream);
+                string myUpload = Path.Combine(_imagepath, "commentsImages");
+                fileName = dto.ClientFile.FileName;
+                string fullPath = Path.Combine(myUpload, fileName);
 
-                comment.Image = datastream.ToArray();
+                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                comment.Image = fileName;
             }
             var commented = await _commentRepo.addCommentAsync(comment);
             if (commented != null)
@@ -128,7 +137,7 @@ namespace ySite.Service.Services
                 commentR.UserId = userId;
                 commentR.Comment = commented.Comment;
                 commentR.CreatedOn = commented.CreatedOn;
-                commentR.ClientFile = commented.Image;
+                commentR.Image = commented.Image;
                 commentR.ReplaisCount = commented.RepliesCount;
 
                 post.CommentsCount += 1;

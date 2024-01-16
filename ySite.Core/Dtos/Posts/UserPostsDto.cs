@@ -11,7 +11,7 @@ namespace ySite.Core.Dtos.Post
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public byte[]? Image { get; set; }
+        public string? Image { get; set; }
         public int CommentsCount { get; set; }
         public int LikeCount { get; set; }
         public int LoveCount { get; set; }

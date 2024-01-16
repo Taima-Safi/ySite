@@ -1,10 +1,11 @@
 ﻿
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Repository.RepoInterfaces;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using ySite.Core.Dtos;
+using ySite.Core.StaticFiles;
 using ySite.Core.StaticUserRoles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
@@ -15,23 +16,46 @@ namespace ySite.Service.Services
     {
         private readonly IAuthRepo _authRepo;
         private readonly JwtConfiguration _jwtConfig;
+        private readonly IHostingEnvironment _host;
+        private readonly string _imagepath;
 
-        public AuthService(IAuthRepo authRepo, IOptions<JwtConfiguration> jwtConfig)
+        public AuthService(IAuthRepo authRepo,
+            IOptions<JwtConfiguration> jwtConfig,
+            IHostingEnvironment host)
         {
             _authRepo = authRepo;
             _jwtConfig = jwtConfig.Value;
+            _host = host;
+            _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
         }
 
         public async Task<string> RegisterUser(RegisterDto dto)
         {
-            var user = new ApplicationUser
+            var user = new ApplicationUser();
+
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            user.UserName = dto.UserName;
+            user.Email = dto.Email;
+            user.PhoneNumber = dto.PhoneNumber;
+
+            string fileName = string.Empty;
+            if(dto.ClientFile is null)
             {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                UserName = dto.UserName,
-                Email = dto.Email,
-                PhoneNumber = dto.PhoneNumber
-            };
+                var defaultImage = FilesSettings.DefaultUserImagePath;
+                user.UserImage = Path.GetFileName(defaultImage);
+            }
+            else
+            {
+                string myUpload = Path.Combine(_imagepath, "userImage");
+                fileName = dto.ClientFile.FileName;
+                string fullPath = Path.Combine(myUpload, fileName);
+
+                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                user.UserImage = fileName;
+            }
+
+
             var result =await _authRepo.InsertUser(user, dto.Password);
             return result;
         }

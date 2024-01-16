@@ -11,7 +11,6 @@ namespace ySite.Core.Dtos.Comments
     {
         public string? Comment { get; set; }
         public IFormFile? ClientFile { get; set; }
-        //public string UserId { get; set; }
         public int PostId { get; set; }
         //public DateTime CreatedOn { get; set; }
 

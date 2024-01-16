@@ -12,7 +12,7 @@ namespace ySite.Core.Dtos.Comments
         public int Id { get; set; }
         public string Message { get; set; }
         public string? Comment { get; set; }
-        public byte[]? ClientFile { get; set; }
+        public string? Image { get; set; }
         public string UserId { get; set; }
         public int PostId { get; set; }
         public int ReplaisCount { get; set; }

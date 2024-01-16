@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,7 +13,11 @@ namespace ySite.EF.Entities
     {
         public int Id { get; set; }
         public string? Description { get; set; }
-        public byte[]? Image { get; set; }
+        //public byte[]? Image { get; set; }//Should Delete
+        public string? Image { get; set; }
+
+        [NotMapped]
+        public IFormFile ClientFile { get; set; }
         public string UserId { get; set; } 
         public ApplicationUser User { get; set; }
         public DateTime CreatedOn { get; set; }

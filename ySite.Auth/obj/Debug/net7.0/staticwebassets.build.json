@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "AQYMAhSRb31C7NThI0WEtEq+sjh3r4hm9nNLqSZV7kc=",
+  "Hash": "9mi5uSZV6D/71HwMQWYtCSB2UkJD7OAXFOLiaVLD3Mc=",
   "Source": "ySite.Auth",
   "BasePath": "_content/ySite.Auth",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "ySite.Auth\\wwwroot",
+      "Source": "ySite.Auth",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\",
+      "BasePath": "_content/ySite.Auth",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\defaultUserImage\\DefaultUserImage.png",
+      "SourceId": "ySite.Auth",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\",
+      "BasePath": "_content/ySite.Auth",
+      "RelativePath": "Images/defaultUserImage/DefaultUserImage.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\defaultUserImage\\DefaultUserImage.png"
+    }
+  ]
 }

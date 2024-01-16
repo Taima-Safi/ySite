@@ -10,8 +10,7 @@ namespace ySite.Core.Dtos.Post
     public class PostDto
     {
         public string? Description { get; set; }
-        public string? FileName { get; set; }
+       // public string? FileName { get; set; }
         public IFormFile? ClientFile { get; set; }
-        //public string? UserId { get; set; }
     }
 }

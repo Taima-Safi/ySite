@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using Repository.RepoInterfaces;
 using ySite.Core.Dtos.Post;
 using ySite.Core.Dtos.Posts;
+using ySite.Core.StaticFiles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
 
@@ -14,16 +19,20 @@ namespace ySite.Service.Services
         private readonly IReactionRepo _reactionRepo;
         private readonly ICommentRepo _commentRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHostingEnvironment _host;
+        private readonly string _imagepath;
 
         public PostService(IPostRepo postRepo, IAuthRepo authRepo,
             IHttpContextAccessor httpContextAccessor, IReactionRepo reactionRepo,
-            ICommentRepo commentRepo)
+            ICommentRepo commentRepo, IHostingEnvironment host)
         {
             _postRepo = postRepo;
             _authRepo = authRepo;
             _httpContextAccessor = httpContextAccessor;
             _reactionRepo = reactionRepo;
             _commentRepo = commentRepo;
+            _host = host;
+            _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
         }
 
         public async Task<UserPostsResultDto> GetUserPosts(string userId)
@@ -75,13 +84,17 @@ namespace ySite.Service.Services
             if (dto.Description != null)
                 post.Description = dto.Description;
 
+            string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
-                using var datastream = new MemoryStream();
-                await dto.ClientFile.CopyToAsync(datastream);
+                string myUpload = Path.Combine(_imagepath, "postsImages");
+                fileName = dto.ClientFile.FileName;
+                string fullPath = Path.Combine(myUpload, fileName);
 
-                post.Image = datastream.ToArray();
+                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                post.Image = fileName;
             }
+
             if (await _postRepo.addPostAsync(post))
                 return true;
 
@@ -100,12 +113,15 @@ namespace ySite.Service.Services
             if (dto.Description != null)
                 post.Description = dto.Description;
 
+            string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
-                using var datastream = new MemoryStream();
-                await dto.ClientFile.CopyToAsync(datastream);
+                string myUpload = Path.Combine(_imagepath, "postsImages");
+                fileName = dto.ClientFile.FileName;
+                string fullPath = Path.Combine(myUpload, fileName);
 
-                post.Image = datastream.ToArray();
+                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                post.Image = fileName;
             }
             post.UpdatedOn = DateTime.UtcNow;
             _postRepo.updatePost(post);
