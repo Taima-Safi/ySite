@@ -41,7 +41,6 @@ namespace ySite.Service
             services.AddScoped<IFriendShipRepo, FriendShipRepo>();
             services.AddScoped<IReplayRepo, ReplayRepo>();
 
-            services.AddScoped<IStaticService, StaticService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IReactionService, ReactionService>();

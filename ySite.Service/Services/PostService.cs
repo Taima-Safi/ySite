@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
 using Repository.RepoInterfaces;
 using ySite.Core.Dtos.Post;
 using ySite.Core.Dtos.Posts;
 using ySite.Core.StaticFiles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
-using ySite.Core.Helper;
 
 namespace ySite.Service.Services
 {
     public class PostService : IPostService
     {
-        private readonly IStaticService _staticService;
         private readonly IPostRepo _postRepo;
         private readonly IAuthRepo _authRepo;
         private readonly IReactionRepo _reactionRepo;
@@ -26,7 +21,7 @@ namespace ySite.Service.Services
 
         public PostService(IPostRepo postRepo, IAuthRepo authRepo,
             IHttpContextAccessor httpContextAccessor, IReactionRepo reactionRepo,
-            ICommentRepo commentRepo, IHostingEnvironment host, IStaticService staticService = null)
+            ICommentRepo commentRepo, IHostingEnvironment host)
         {
             _postRepo = postRepo;
             _authRepo = authRepo;
@@ -35,7 +30,6 @@ namespace ySite.Service.Services
             _commentRepo = commentRepo;
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
-            _staticService = staticService;
         }
 
         public async Task<UserPostsResultDto> GetUserPosts(string userId)
@@ -91,7 +85,7 @@ namespace ySite.Service.Services
 
             if (dto.ClientFile != null)
             {
-                var result = _staticService.AllowUplaod(dto.ClientFile);
+                var result = FilesSettings.AllowUplaod(dto.ClientFile);
                 if (result.IsValid)
                 {
                     string myUpload = Path.Combine(_imagepath, "postsImages");
@@ -112,21 +106,6 @@ namespace ySite.Service.Services
 
             return "Can not add this post";
         }
-
-        //private ValidationResult AllowUplaod(IFormFile? ClientFile)
-        //{
-        //    if (ClientFile.Length > FilesSettings.MaxFileSizeInBytes)
-                
-        //        return ValidationResult.Fail($"The Uplaoded image exceeds the maximum allowed size of {FilesSettings.MaxFileSizeInBytes / (1024 * 1024)} MB.");
-
-        //    var allowedExtensions =FilesSettings.AllowedExtensions.Split(',');
-        //    var fileExtension = Path.GetExtension(ClientFile.FileName).ToLower();
-
-        //    if (!allowedExtensions.Contains(fileExtension))
-        //        return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.AllowedExtensions}.");
-
-        //    return ValidationResult.Success();
-        //}
 
         public async Task<string> EditPost(UpdatePostDto dto, string userId)
         {

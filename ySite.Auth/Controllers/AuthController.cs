@@ -16,7 +16,7 @@ namespace ySite.Auth.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAuthService _authService;
@@ -29,16 +29,15 @@ namespace ySite.Auth.Controllers
 
         //this for test
         [HttpGet("GetUsers")]
-        public IActionResult GetUSers()
+        public IActionResult GetUsers()
         {
             return Ok(_userManager.Users.ToList());
         }
         
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(RegisterDto dto)
+        public async Task<IActionResult> Register([FromForm]RegisterDto dto)
         {
-                //SetRefreshTokenInCookie(authModel.RefreshToken, authModel.RefreshTokenExpiration);
             return Ok(await _authService.RegisterUser(dto));
         }
         
@@ -53,12 +52,33 @@ namespace ySite.Auth.Controllers
             return Ok(authModel);
         }
 
+        [HttpPost("verify")]
+        public async Task<IActionResult> Verify(string token)
+        {
+            var verified = await _authService.Verify(token);
+            return Ok(verified);
+        }
+
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            var result = await _authService.ForgotPassword(email);
+            return Ok(result);
+        }
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResettPassword(ResetPasswordDto dto)
+        {
+            var result = await _authService.ResettPassword(dto);
+            return Ok(result);
+        }
 
         [HttpDelete("DeleteUser")]
         [Authorize]
-        public async Task<IActionResult> Delete(string userId)
+        public async Task<IActionResult> Delete(string Id)
         {
-            var dto = await _authService.RemoveUser(userId);
+            var userId = GetUserId();
+            var dto = await _authService.RemoveUser(userId, Id);
             return Ok(dto);
         }
 

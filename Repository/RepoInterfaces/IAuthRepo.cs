@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using ySite.Core.Dtos;
 using ySite.Core.StaticUserRoles;
 using ySite.EF;
 using ySite.EF.Entities;
@@ -25,6 +27,11 @@ namespace Repository.RepoInterfaces
         Task<ApplicationUser> UserfromToken(string token);
         Task<List<Claim>> GetRoleClaims(string rolename);
         Task<ApplicationUser> FindById(string userId);
-        Task<bool> Remove(ApplicationUser user);
+        Task Remove(ApplicationUser user);
+        Task<ApplicationUser> FindByEmail(string email);
+        //Task<ApplicationUser> FindUserAsync(ResetPasswordDto dto);
+        Task<string> ResetPassword(ApplicationUser user, string password);
+        Task<string> GenerateResetPasswordToken(ApplicationUser user);
+        Task<ApplicationUser> FindUserAsync(Expression<Func<ApplicationUser, bool>> predicate);
     }
 }

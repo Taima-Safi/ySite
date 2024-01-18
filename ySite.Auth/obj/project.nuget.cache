@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PcWxDjeyYUd1FA7RVDkdpGipnp9OtNdo/ZVNsXd/rC85RHCaGSNtUp5hpZWEhhHQlNrsc9Ol+5IBlo1k3hRU2g==",
+  "dgSpecHash": "MY1pHGzyAnyN8UVAGCYyh3ovJDt0I89OI6wr3K/j88L901tatZPXLg4i7wYs2LxUoqYAvFtMo/ta/3FIwv5gmQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj",
   "expectedPackageFiles": [
@@ -58,6 +58,7 @@
     "C:\\Users\\USER\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\octopus.client\\14.3.1098\\octopus.client.14.3.1098.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\sixlabors.imagesharp\\3.1.2\\sixlabors.imagesharp.3.1.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

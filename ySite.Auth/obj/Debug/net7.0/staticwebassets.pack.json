@@ -1,8 +1,24 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\defaultUserImage\\DefaultUserImage.png",
-      "PackagePath": "staticwebassets\\Images\\defaultUserImage\\DefaultUserImage.png"
+      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\defaultUserImage\\DefaultMaleImage.png",
+      "PackagePath": "staticwebassets\\Images\\defaultUserImage\\DefaultMaleImage.png"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\defaultUserImage\\Female image.webp",
+      "PackagePath": "staticwebassets\\Images\\defaultUserImage\\Female image.webp"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\defaultUserImage\\Male Image.jpg",
+      "PackagePath": "staticwebassets\\Images\\defaultUserImage\\Male Image.jpg"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\usersImages\\photo_2023-07-04_15-45-08.jpg",
+      "PackagePath": "staticwebassets\\Images\\usersImages\\photo_2023-07-04_15-45-08.jpg"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\usersImages\\tourism DataBase.PNG",
+      "PackagePath": "staticwebassets\\Images\\usersImages\\tourism DataBase.PNG"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.ySite.Auth.props",

@@ -5,16 +5,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Repository.RepoInterfaces;
+//using System.Data.Entity;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Expressions;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using ySite.Core.Dtos;
 using ySite.Core.Helper;
 using ySite.Core.StaticUserRoles;
+using ySite.EF.DbContext;
 using ySite.EF.Entities;
 
 namespace Repository.Repos
@@ -23,19 +24,21 @@ namespace Repository.Repos
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly AppDbContext _context;
         private readonly IReactionRepo _reactionRepo;
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContext;
 
         public AuthRepo(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager, IConfiguration config,
-            IHttpContextAccessor httpContext, IReactionRepo reactionRepo)
+            IHttpContextAccessor httpContext, IReactionRepo reactionRepo, AppDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _config = config;
             _httpContext = httpContext;
             _reactionRepo = reactionRepo;
+            _context = context;
         }
         public async Task<List<string>> GetUserRoles(ApplicationUser user)
         {
@@ -50,9 +53,6 @@ namespace Repository.Repos
 
         public async Task<string> InsertUser(ApplicationUser user, string Password)
         {
-            if (user == null)
-                return "Invalid Value";
-
             var created = await _userManager.FindByEmailAsync(user.Email);
             if (created != null)
                 return "This Email already exists";
@@ -69,6 +69,7 @@ namespace Repository.Repos
             return "Succeeded";
         }
 
+
         public async Task<ApplicationUser> FindById(string userId)
         {
            var user = await _userManager.FindByIdAsync(userId);
@@ -80,6 +81,17 @@ namespace Repository.Repos
            var user = await _userManager.FindByNameAsync(userName);
             return user;
         }
+         
+        public async Task<ApplicationUser> FindByEmail(string email)
+        {
+           var user = await _userManager.FindByEmailAsync(email);
+            return user;
+        }
+        public async Task<ApplicationUser> FindUserAsync(Expression<Func<ApplicationUser, bool>> predicate)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(predicate);
+            return user;
+        }
 
         public async Task<bool> CheckPassword(ApplicationUser user, string password)
         {
@@ -89,17 +101,30 @@ namespace Repository.Repos
             return false;
         }
 
-        public async Task<bool> Remove(ApplicationUser user)
+        public async Task<string> GenerateResetPasswordToken(ApplicationUser user)
         {
-            var reactions = await _reactionRepo.GetReactionsForUser(user.Id);
-            if(user.IsDeleted = true)
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<string> ResetPassword(ApplicationUser user, string password)
+        {
+          var result =  await _userManager.ResetPasswordAsync(user, user.PasswordResetToken, password);
+
+            if (result.Succeeded)
             {
-                foreach (var reaction in reactions)
-                    reaction.IsDeleted = true;
-                await _userManager.UpdateAsync(user);
-                return true;
+                // Password reset successful
+                return "Password reset successfully.";
             }
-            return false;
+            else
+            {
+                // Password reset failed
+                return "Password reset failed. Please check your token and try again.";
+            }
+        }
+
+        public async Task Remove(ApplicationUser user)
+        {
+            await _userManager.UpdateAsync(user);
         }
 
         public async Task<string> GenerateTokenString(ApplicationUser user, JwtConfiguration jwtConfig)

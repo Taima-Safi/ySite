@@ -93,7 +93,6 @@ namespace ySite.Service.Services
                     r.IsDeleted = true;
                     r.DeletedOn = DateTime.UtcNow;
                     post.ReactsCount--;
-
                 }
             }
             var reacted = await _reactionRepo.AddReact(reaction);

@@ -9,7 +9,6 @@ namespace ySite.Service.Services
 {
     public class CommentService : ICommentService
     {
-        private readonly IStaticService _staticService;
         private readonly ICommentRepo _commentRepo;
         private readonly IPostRepo _postRepo;
         private readonly IReplayRepo _replayRepo;
@@ -18,8 +17,7 @@ namespace ySite.Service.Services
         private readonly string _imagepath;
 
         public CommentService(ICommentRepo commentRepo, IPostRepo postRepo,
-            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host,
-            IStaticService staticService = null)
+            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host)
         {
             _commentRepo = commentRepo;
             _postRepo = postRepo;
@@ -27,7 +25,6 @@ namespace ySite.Service.Services
             _replayRepo = replayRepo;
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
-            _staticService = staticService;
         }
 
         public async Task<UserCommentsResultDto> GetUserComments(string userId)
@@ -124,7 +121,7 @@ namespace ySite.Service.Services
             string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
-                var result = _staticService.AllowUplaod(dto.ClientFile);
+                var result = FilesSettings.AllowUplaod(dto.ClientFile);
                 if(result.IsValid)
                 {
                     string myUpload = Path.Combine(_imagepath, "commentsImages");
