@@ -274,7 +274,7 @@ namespace ySite.EF.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("File")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -353,7 +353,7 @@ namespace ySite.EF.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("File")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")

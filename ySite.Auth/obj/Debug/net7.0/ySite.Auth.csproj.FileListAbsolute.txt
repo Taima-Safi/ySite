@@ -98,3 +98,6 @@ C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\Microsoft.Extension
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\Octopus.Client.dll
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\ySite.Auth.staticwebassets.runtime.json
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\SixLabors.ImageSharp.dll
+C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\MediaToolkit.dll
+C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\libvideo.dll
+C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\FFmpeg.AutoGen.dll

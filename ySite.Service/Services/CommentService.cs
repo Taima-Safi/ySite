@@ -15,6 +15,7 @@ namespace ySite.Service.Services
         private readonly IAuthRepo _authRepo;
         private readonly IHostingEnvironment _host;
         private readonly string _imagepath;
+        private readonly string _videoPath;
 
         public CommentService(ICommentRepo commentRepo, IPostRepo postRepo,
             IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host)
@@ -25,6 +26,7 @@ namespace ySite.Service.Services
             _replayRepo = replayRepo;
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
+            _videoPath = $"{_host.WebRootPath}{FilesSettings.VideosPath}";
         }
 
         public async Task<UserCommentsResultDto> GetUserComments(string userId)
@@ -48,7 +50,7 @@ namespace ySite.Service.Services
                 Message = $"Comments of {c.User.FirstName} : ",
                 Comment = c.Comment,
                 PostId = c.PostId,
-                Image = c.Image,
+                Image = c.File,
                 CreatedOn = c.CreatedOn,
                 UserId = c.UserId,
                 Id = c.Id,
@@ -79,7 +81,7 @@ namespace ySite.Service.Services
             {
                 Id = c.Id,
                 Comment = c.Comment,
-                Image = c.Image,
+                Image = c.File,
                 PostId = c.PostId,
                 UserId = c.UserId,
                 CreatedOn = c.CreatedOn,
@@ -117,23 +119,27 @@ namespace ySite.Service.Services
             comment.PostId = dto.PostId;
             comment.UserId = userId;
             comment.CreatedOn = DateTime.Now;
-
+            
             string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
+                string myUpload;
                 var result = FilesSettings.AllowUplaod(dto.ClientFile);
-                if(result.IsValid)
+                if (result.IsValid)
                 {
-                    string myUpload = Path.Combine(_imagepath, "commentsImages");
+                    if (result.Message == "video")
+                        myUpload = Path.Combine(_videoPath, "commentsVideos");
+                    else
+                        myUpload = Path.Combine(_imagepath, "commentsImages");
                     fileName = dto.ClientFile.FileName;
                     string fullPath = Path.Combine(myUpload, fileName);
 
                     dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
-                    comment.Image = fileName;
+                    comment.File = fileName;
                 }
                 else
                 {
-                    commentR.Message = result.ErrorMessage;
+                    commentR.Message = result.Message;
                     return commentR;
                 }
             }
@@ -146,7 +152,7 @@ namespace ySite.Service.Services
                 commentR.UserId = userId;
                 commentR.Comment = commented.Comment;
                 commentR.CreatedOn = commented.CreatedOn;
-                commentR.Image = commented.Image;
+                commentR.Image = commented.File;
                 commentR.ReplaisCount = commented.RepliesCount;
 
                 post.CommentsCount += 1;

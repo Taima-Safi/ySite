@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediaToolkit;
+using VideoLibrary;
+using MediaToolkit.Options;
+using Microsoft.AspNetCore.Http;
 using ySite.Core.Helper;
-using static System.Net.Mime.MediaTypeNames;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.PixelFormats;
+using MediaToolkit.Model;
+using System;
+using System.IO;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace ySite.Core.StaticFiles
@@ -16,13 +13,17 @@ namespace ySite.Core.StaticFiles
     public class FilesSettings
     {
         public const string ImagesPath = "/Images";
+        public const string VideosPath = "/Videos";
         public const string DefaultUserImagePath = "/Images/defaultUserImage/Male Image.jpg";
         public const string DefaultFemaleImagePath = "/Images/defaultUserImage/Female image.webp";
-        public const string ImageAllowedExtensions = ".jpg,.jpeg,.png,.webp,.gif";
-        public const string VideoAllowedExtensions = ".mp4,.mov,.avi,.mkv";
+        public const string AllowedImageExtensions = ".jpg,.jpeg,.png,.webp,.gif,.bmp";
+        public const string AllowedVideoExtensions = ".mp4,.mov,.avi,.mkv,.wmv";
         public const int MaxFileSizeInMB = 5;
         public const int MaxFileSizeInBytes = MaxFileSizeInMB * 1024 * 1024;
-       // public TimeSpan maxDuration = TimeSpan.FromMinutes(240);
+        // public TimeSpan maxDuration = TimeSpan.FromMinutes(240);
+        public const int MaxVideoSizeInBytes = 50 * 1024 * 1024;
+        public const int MaxVideoDurationInSeconds = 300; // 5 minutes (adjust as needed)
+
         public const int MaxWidthInPX = 2500;
         public const int MaxHightInPX = 2500;
         
@@ -35,71 +36,59 @@ namespace ySite.Core.StaticFiles
         public const int MinWidthInPX = 600;
         public const int MinHightInPX = 315;
 
-
         public static ValidationResult AllowUplaod(IFormFile ClientFile)
         {
-            if (ClientFile.Length > FilesSettings.MaxFileSizeInBytes)
-
-                return ValidationResult.Fail($"The Uplaoded image exceeds the maximum allowed size of {FilesSettings.MaxFileSizeInBytes / (1024 * 1024)} MB.");
-
-            var allowedExtensions = FilesSettings.ImageAllowedExtensions.Split(',');
-            var fileExtension = Path.GetExtension(ClientFile.FileName).ToLower();
             
-            //var videoAllowedExtensions = FilesSettings.VideoAllowedExtensions.Split(',');
-            //var fileExtension = Path.GetExtension(ClientFile.FileName).ToLower();
+            var allowedImageExtensions = FilesSettings.AllowedImageExtensions.Split(',');
+            var allowedVideoExtensions = FilesSettings.AllowedVideoExtensions.Split(',');
+            var fileExtension = Path.GetExtension(ClientFile.FileName).ToLower();
 
-            if (!allowedExtensions.Contains(fileExtension))
-                return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.ImageAllowedExtensions}.");
-
-            using (var image = Image.Load(ClientFile.OpenReadStream()))
+            if (allowedImageExtensions.Contains(fileExtension))
             {
-                if (image.Width > MaxWidthInPX || image.Height > MaxHightInPX)
+                if (ClientFile.Length > FilesSettings.MaxFileSizeInBytes)
+
+                    return ValidationResult.Fail($"The Uplaoded image exceeds the maximum allowed size of {FilesSettings.MaxFileSizeInBytes / (1024 * 1024)} MB.");
+
+                using (var image = Image.Load(ClientFile.OpenReadStream()))
                 {
-                    return ValidationResult.Fail($"Image dimensions exceed the maximum allowed dimensions of {MaxWidthInPX}x{MaxHightInPX} pixels.");
+                    if (image.Width > MaxWidthInPX || image.Height >  MaxHightInPX)
+                    {
+                        return ValidationResult.Fail($"Image dimensions exceed the maximum allowed dimensions of {MaxWidthInPX}x{MaxHightInPX} pixels.");
+                    }
+                    if (image.Width < MinWidthInPX || image.Height < MinHightInPX)
+                    {
+                        return ValidationResult.Fail($"Image dimensions exceed the minimum allowed dimensions of {MinWidthInPX}x{MinHightInPX} pixels.");
+                    }
                 }
-                if (image.Width < MinWidthInPX || image.Height < MinHightInPX)
-                {
-                    return ValidationResult.Fail($"Image dimensions exceed the minimum allowed dimensions of {MinWidthInPX}x{MinHightInPX} pixels.");
-                }
+                return ValidationResult.Success("Image");
             }
+            else if (allowedVideoExtensions.Contains(fileExtension))
+            {
+                if (ClientFile.Length > FilesSettings.MaxVideoSizeInBytes)
+                    return ValidationResult.Fail($"The uploaded video exceeds the maximum allowed size of {FilesSettings.MaxVideoSizeInBytes / (1024 * 1024)} MB.");
 
-            //if (allowedExtensions.Contains(fileExtension))
-            //{
-            //    using (var image = Image.Load(ClientFile.OpenReadStream()))
-            //    {
-            //        if (image.Width > MaxWidthInPX || image.Height > MaxHightInPX)
-            //        {
-            //            return ValidationResult.Fail($"Image dimensions exceed the maximum allowed dimensions of {MaxWidthInPX}x{MaxHightInPX} pixels.");
-            //        }
-            //        if (image.Width < MinWidthInPX || image.Height < MinHightInPX)
-            //        {
-            //            return ValidationResult.Fail($"Image dimensions exceed the minimum allowed dimensions of {MinWidthInPX}x{MinHightInPX} pixels.");
-            //        }
-            //    }
-            //}
-            //else if (videoAllowedExtensions.Contains(fileExtension))
-            //{
-            //    using (var video = new VideoFile { Filename = ClientFile.FileName })
-            //    {
-            //        Engine engine = new Engine();
+                //using (var video = new VideoFile { Filename = ClientFile.FileName })
+                //{
+                //var inputFile = new MediaFile { Filename = ClientFile.FileName };
+                //using (var engine = new Engine())
+                //{
+                //    engine.GetMetadata(inputFile);
 
-            //        var videoInfo = engine.GetVideoInfo(video);
+                //    if (inputFile.Metadata.Duration > TimeSpan.FromMinutes(240)) // Facebook Pages video duration limit
+                //    {
+                //        return ValidationResult.Fail($"The uploaded video exceeds the maximum allowed duration of 240 minutes.");
+                //    }
+                //}
 
-            //        TimeSpan maxVideoDuration = TimeSpan.FromMinutes(240); // Facebook Pages video duration limit
+                //}
+                return ValidationResult.Success("video");
+            }
+            return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.AllowedImageExtensions} For Images and {FilesSettings.AllowedVideoExtensions} For videos.");
 
-            //        if (videoInfo.Duration > maxVideoDuration)
-            //        {
-            //            return ValidationResult.Fail($"The uploaded video exceeds the maximum allowed duration of {maxVideoDuration.TotalMinutes} minutes.");
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.ImageAllowedExtensions} For Images and {FilesSettings.VideoAllowedExtensions} For videos.");
-            //}
-
-            return ValidationResult.Success();
+          //  return ValidationResult.Success("video");
         }
+
+
 
         public static ValidationResult UserImageAllowUplaod(IFormFile ClientFile)
         {
@@ -107,11 +96,11 @@ namespace ySite.Core.StaticFiles
 
                 return ValidationResult.Fail($"The Uplaoded image exceeds the maximum allowed size of {FilesSettings.MaxFileSizeInBytes / (1024 * 1024)} MB.");
 
-            var allowedExtensions = FilesSettings.ImageAllowedExtensions.Split(',');
+            var allowedExtensions = FilesSettings.AllowedImageExtensions.Split(',');
             var fileExtension = Path.GetExtension(ClientFile.FileName).ToLower();
 
             if (!allowedExtensions.Contains(fileExtension))
-                return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.ImageAllowedExtensions}.");
+                return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.AllowedImageExtensions}.");
 
             using (var image = Image.Load(ClientFile.OpenReadStream()))
             {
@@ -125,7 +114,7 @@ namespace ySite.Core.StaticFiles
                 }
             }
 
-            return ValidationResult.Success();
+            return ValidationResult.Success("video");
         }
     }
 }

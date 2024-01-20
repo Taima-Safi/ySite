@@ -14,7 +14,7 @@ namespace ySite.EF.Entities
         public int Id { get; set; }
         public string? Description { get; set; }
         //public byte[]? Image { get; set; }//Should Delete
-        public string? Image { get; set; }
+        public string? File { get; set; }
 
         [NotMapped]
         public IFormFile ClientFile { get; set; }

@@ -12,7 +12,7 @@ namespace ySite.EF.Entities
     {
         public int Id { get; set; }
         public string? Comment { get; set; }
-        public string? Image { get; set; }
+        public string? File { get; set; }
 
         [NotMapped]
         public IFormFile ClientFile { get; set; }

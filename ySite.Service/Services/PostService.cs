@@ -18,6 +18,7 @@ namespace ySite.Service.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHostingEnvironment _host;
         private readonly string _imagepath;
+        private readonly string _videoPath;
 
         public PostService(IPostRepo postRepo, IAuthRepo authRepo,
             IHttpContextAccessor httpContextAccessor, IReactionRepo reactionRepo,
@@ -30,6 +31,7 @@ namespace ySite.Service.Services
             _commentRepo = commentRepo;
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
+            _videoPath = $"{_host.WebRootPath}{FilesSettings.VideosPath}";
         }
 
         public async Task<UserPostsResultDto> GetUserPosts(string userId)
@@ -58,7 +60,7 @@ namespace ySite.Service.Services
             {
                 Id = post.Id,
                 Description = post.Description,
-                Image = post.Image,
+                Image = post.File,
                 CommentsCount = post.CommentsCount,
                 ReactsCount = post.ReactsCount,
                 LikeCount = post.Reactions?.Count(r => r.Reaction == ReactionType.Like)?? 0,
@@ -82,22 +84,25 @@ namespace ySite.Service.Services
             if (dto.Description != null)
                 post.Description = dto.Description;
             string fileName = string.Empty;
-
             if (dto.ClientFile != null)
             {
+                string myUpload;
                 var result = FilesSettings.AllowUplaod(dto.ClientFile);
                 if (result.IsValid)
                 {
-                    string myUpload = Path.Combine(_imagepath, "postsImages");
+                    if(result.Message == "video")
+                         myUpload = Path.Combine(_videoPath, "postsVideos"); 
+                    else
+                         myUpload = Path.Combine(_imagepath, "postsImages");
                     fileName = dto.ClientFile.FileName;
                     string fullPath = Path.Combine(myUpload, fileName);
 
                     dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
-                    post.Image = fileName;
+                    post.File = fileName;
                 }
                 else
                 {
-                    return result.ErrorMessage;
+                    return result.Message;
                 }
             }
 
@@ -122,12 +127,24 @@ namespace ySite.Service.Services
             string fileName = string.Empty;
             if (dto.ClientFile != null)
             {
-                string myUpload = Path.Combine(_imagepath, "postsImages");
-                fileName = dto.ClientFile.FileName;
-                string fullPath = Path.Combine(myUpload, fileName);
+                string myUpload;
+                var result = FilesSettings.AllowUplaod(dto.ClientFile);
+                if (result.IsValid)
+                {
+                    if (result.Message == "video")
+                        myUpload = Path.Combine(_videoPath, "postsVideos");
+                    else
+                        myUpload = Path.Combine(_imagepath, "postsImages");
+                    fileName = dto.ClientFile.FileName;
+                    string fullPath = Path.Combine(myUpload, fileName);
 
-                dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
-                post.Image = fileName;
+                    dto.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    post.File = fileName;
+                }
+                else
+                {
+                    return result.Message;
+                }
             }
             post.UpdatedOn = DateTime.UtcNow;
             _postRepo.updatePost(post);

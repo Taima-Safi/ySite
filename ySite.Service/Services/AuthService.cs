@@ -88,7 +88,7 @@ namespace ySite.Service.Services
                 }
                 else
                 {
-                    authDto.msg = result.ErrorMessage;
+                    authDto.msg = result.Message;
                     return authDto;
                 }
             }

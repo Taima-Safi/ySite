@@ -44,6 +44,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "FFmpeg.AutoGen": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
+            "MediaToolkit": {
+              "target": "Package",
+              "version": "[1.1.0.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -55,6 +63,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "VideoLibrary": {
+              "target": "Package",
+              "version": "[3.2.3, )"
             }
           },
           "imports": [

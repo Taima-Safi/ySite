@@ -20,4 +20,9 @@
     <ProjectReference Include="..\ySite.Service\ySite.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Videos\commentsVideos\" />
+    <Folder Include="wwwroot\Videos\postsVideos\" />
+  </ItemGroup>
+
 </Project>

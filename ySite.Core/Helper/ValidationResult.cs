@@ -9,22 +9,22 @@ namespace ySite.Core.Helper
     public class ValidationResult
     {
         public bool  IsValid { get; set; }
-        public string ErrorMessage { get; set; }
+        public string Message { get; set; }
 
-        public ValidationResult(bool isValid, string errorMessage)
+        public ValidationResult(bool isValid, string message)
         {
             IsValid = isValid;
-            ErrorMessage = errorMessage;
+            Message = message;
         }
 
-        public static ValidationResult Success()
+        public static ValidationResult Success(string message)
         {
-            return new ValidationResult(true, null);
+            return new ValidationResult(true, message);
         }
 
-        public static ValidationResult Fail(string errorMessage)
+        public static ValidationResult Fail(string message)
         {
-            return new ValidationResult(false, errorMessage);
+            return new ValidationResult(false, message);
         }
 
     }
