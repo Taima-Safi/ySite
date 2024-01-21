@@ -59,7 +59,6 @@ namespace ySite.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Policy = Policies.DeleteFriendPolicy)]
 
         public async Task<IActionResult> DeleteFriendAsync(string friendId)
         {

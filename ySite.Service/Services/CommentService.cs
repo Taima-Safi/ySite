@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Localization;
 using Repository.RepoInterfaces;
 using ySite.Core.Dtos.Comments;
+using ySite.Core.Helper;
 using ySite.Core.StaticFiles;
+using ySite.Core.StaticUserRoles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
 
@@ -16,9 +19,11 @@ namespace ySite.Service.Services
         private readonly IHostingEnvironment _host;
         private readonly string _imagepath;
         private readonly string _videoPath;
+        private readonly IStringLocalizer<CommentService> _localizer;
 
         public CommentService(ICommentRepo commentRepo, IPostRepo postRepo,
-            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host)
+            IAuthRepo authRepo, IReplayRepo replayRepo, IHostingEnvironment host,
+            IStringLocalizer<CommentService> localizer)
         {
             _commentRepo = commentRepo;
             _postRepo = postRepo;
@@ -27,6 +32,7 @@ namespace ySite.Service.Services
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
             _videoPath = $"{_host.WebRootPath}{FilesSettings.VideosPath}";
+            _localizer = localizer;
         }
 
         public async Task<UserCommentsResultDto> GetUserComments(string userId)
@@ -35,14 +41,14 @@ namespace ySite.Service.Services
             var user = await _authRepo.FindById(userId);
             if (user is null)
             {
-                userCommentsR.Message = "invalid User";
+                userCommentsR.Message = _localizer[SharedResources.InvalidUser];
                 return userCommentsR;
             }
             var comments =await _commentRepo.GetCommentsAsync(user);
 
             if (comments is null || !comments.Any())
             {
-                userCommentsR.Message = $"This user {user.FirstName} Does not has any comment yet!..";
+                userCommentsR.Message = $"{_localizer[SharedResources.NoComments]} from {user.FirstName} ...";
                 return userCommentsR;
             }
             userCommentsR.Comments = comments.Select(c => new ReadCommentDto
@@ -66,7 +72,7 @@ namespace ySite.Service.Services
             var post = await _postRepo.GetPostAsync(postId);
             if (post is null)
             {
-                commentR.Message = "invalid Post";
+                commentR.Message = _localizer[SharedResources.InvalidPost];
                 return commentR;
             }
             var comments = await _commentRepo.GetCommentsOnPost(postId);
@@ -97,14 +103,14 @@ namespace ySite.Service.Services
             var user = await _authRepo.FindById(userId);
             if(user is null)
             {
-                commentR.Message = "invalid User";
+                commentR.Message = _localizer[SharedResources.InvalidUser];
                 return commentR;
             }
 
             var post = await _postRepo.GetPostAsync(dto.PostId);
             if (post is null)
             {
-                commentR.Message = "invalid Post";
+                commentR.Message = _localizer[SharedResources.InvalidPost];
                 return commentR;
             }
             if(dto == null || (dto.Comment == null && dto.ClientFile == null))
@@ -146,7 +152,7 @@ namespace ySite.Service.Services
             var commented = await _commentRepo.addCommentAsync(comment);
             if (commented != null)
             {
-                commentR.Message = "Commented Successfuly..";
+                commentR.Message = _localizer[SharedResources.Added];
                 commentR.Id = commented.Id;
                 commentR.PostId = commented.PostId;
                 commentR.UserId = userId;
@@ -168,11 +174,17 @@ namespace ySite.Service.Services
         {
             var user = await _authRepo.FindById(userId);
             if (user is null)
-                return "Invalid User";
+                return _localizer[SharedResources.InvalidUser];
 
             var comment = await _commentRepo.GetCommentAsync(commentId);
             if (comment is null)
-                return "Invalid Comment";
+                return _localizer[SharedResources.NoComments];
+
+            var commentPost = await _postRepo.GetPostAsync(comment.PostId);
+            var userRoles = await _authRepo.GetUserRoles(user);
+
+            if(comment.UserId != userId && commentPost.UserId != userId && !userRoles.Contains(UserRoles.OWNER))
+                return _localizer[SharedResources.NoPermission];
 
             var replies = await _replayRepo.GetReplaysOnComment(commentId);
             if(replies is not null)
@@ -193,7 +205,7 @@ namespace ySite.Service.Services
 
             _postRepo.updatePost(post);
 
-            return "this comment deleted ...";
+            return _localizer[SharedResources.Deleted];
         }
 
     }

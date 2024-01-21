@@ -1,0 +1,12 @@
+{
+  "welcome": "Welcome {0}, How are you?",
+  "InValidUser": "UserId invalid!",
+  "InValid": "invalid!",
+  "InvalidPost": "Invalis Post",
+  "NoComments": "No Comments",
+  "NoPermission": "You Do not has permission",
+
+  "Added": "Added Succsssfuly",
+  "Updated": "Updated Succsssfuly",
+  "Deleted": "Deleted Successfuly"
+}

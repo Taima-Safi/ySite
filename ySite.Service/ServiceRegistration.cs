@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Repository.RepoInterfaces;
 using Repository.Repos;
+using System.Globalization;
 using System.Security.Claims;
 using System.Text;
 using ySite.Core.Helper;
@@ -23,6 +26,7 @@ using ySite.Service.Authorization.Requirments.ReactionRequirements;
 using ySite.Service.Authorization.Requirments.ReplayRequirements;
 using ySite.Service.Interfaces;
 using ySite.Service.Services;
+using ySite.Service.Services.Localization;
 
 namespace ySite.Service
 {
@@ -47,6 +51,37 @@ namespace ySite.Service
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IFriendShipService, FriendShipService>();
             services.AddScoped<IReplayService, ReplayService>();
+
+            services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+
+            return services;
+        }
+        public static IServiceCollection LocalizationServices(this IServiceCollection services)
+        {
+            services.AddLocalization();
+            services.AddControllers()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    factory.Create(typeof(JsonStringLocalizerFactory));
+                });
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("ar")
+                };
+                options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0]);
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                //options.RequestCultureProviders = new List<IRequestCultureProvider>
+                // {
+                //    new QueryStringRequestCultureProvider(),
+                //    new HeaderR
+                //};
+            });
 
             return services;
         }

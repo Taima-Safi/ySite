@@ -6,20 +6,25 @@ using ySite.Core.StaticUserRoles;
 using ySite.Core.Dtos.Posts;
 using ySite.EF.Entities;
 using ySite.Core.Dtos.Reactions;
+using Microsoft.Extensions.Localization;
 
 namespace ySite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PostsController : BaseController
     {
         private readonly IPostService _postservice;
+        private readonly IStringLocalizer<PostsController> _localization;
 
-        public PostsController(IPostService postservice)
+        public PostsController(IPostService postservice,
+            IStringLocalizer<PostsController> localization)
         {
             _postservice = postservice;
+            _localization = localization;
         }
+
 
         [HttpGet("GetUserPosts")]
         public async Task<IActionResult> GetPostsAsync()
@@ -29,7 +34,6 @@ namespace ySite.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddPostAsync([FromForm] PostDto dto)
         {
             var userId = GetUserId();
@@ -38,7 +42,7 @@ namespace ySite.Api.Controllers
         
 
         [HttpPut]
-        [Authorize(Policy = Policies.EditPostPolicy)]
+        //[Authorize(Policy = Policies.EditPostPolicy)]
         public async Task<IActionResult> EditPostAsync([FromForm] UpdatePostDto dto, int postId)
         {
             var userId = GetUserId();
@@ -46,7 +50,7 @@ namespace ySite.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Policy = Policies.DeletePostPolicy)]
+       // [Authorize(Policy = Policies.DeletePostPolicy)]
         public async Task<IActionResult> DeletePostAsync(int postId)
         {
             var userId = GetUserId();

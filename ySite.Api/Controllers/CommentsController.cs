@@ -18,7 +18,7 @@ namespace ySite.Api.Controllers
             _commentService = commentService;
         }
 
-        [HttpGet]
+        [HttpGet("GetUserComments")]
         public async Task<IActionResult> GetCommentsAsync()
         {
             var userId = GetUserId();
@@ -41,7 +41,7 @@ namespace ySite.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Policy = Policies.DeleteCommentPolicy)]
+        //[Authorize(Policy = Policies.DeleteCommentPolicy)]
         public async Task<IActionResult> DeletePostAsync(int commentId)
         {
             var userId = GetUserId();

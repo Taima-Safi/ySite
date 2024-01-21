@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
+using Octopus.Client.Model;
 using Repository.RepoInterfaces;
 using ySite.Core.Dtos.Post;
 using ySite.Core.Dtos.Posts;
 using ySite.Core.StaticFiles;
 using ySite.EF.Entities;
 using ySite.Service.Interfaces;
+using ySite.Core.Helper;
+using ySite.Core.StaticUserRoles;
 
 namespace ySite.Service.Services
 {
@@ -19,10 +23,11 @@ namespace ySite.Service.Services
         private readonly IHostingEnvironment _host;
         private readonly string _imagepath;
         private readonly string _videoPath;
+        private readonly IStringLocalizer<PostService> _localizer;
 
         public PostService(IPostRepo postRepo, IAuthRepo authRepo,
             IHttpContextAccessor httpContextAccessor, IReactionRepo reactionRepo,
-            ICommentRepo commentRepo, IHostingEnvironment host)
+            ICommentRepo commentRepo, IHostingEnvironment host, IStringLocalizer<PostService> localization)
         {
             _postRepo = postRepo;
             _authRepo = authRepo;
@@ -32,6 +37,7 @@ namespace ySite.Service.Services
             _host = host;
             _imagepath = $"{_host.WebRootPath}{FilesSettings.ImagesPath}";
             _videoPath = $"{_host.WebRootPath}{FilesSettings.VideosPath}";
+            _localizer = localization;
         }
 
         public async Task<UserPostsResultDto> GetUserPosts(string userId)
@@ -39,20 +45,21 @@ namespace ySite.Service.Services
             var userPostsR = new UserPostsResultDto();
             if (userId is null)
             {
-                userPostsR.Message = "UserId invalid!";
+                userPostsR.Message = _localizer[SharedResources.InvalidUser];
                 return userPostsR;
             }
             var user = await _authRepo.FindById(userId);
             if(user is null)
             {
-                userPostsR.Message = "User Is Not Found!";
+                userPostsR.Message = _localizer[SharedResources.InvalidUser];
                 return userPostsR;
             }
             var posts = await _postRepo.GetPostsAsync(user);
 
             if (posts is null || !posts.Any())
             {
-                userPostsR.Message = "This user does not have any posts";
+                userPostsR.Message = _localizer[SharedResources.InvalidPost];
+               // userPostsR.Message = string.Format(_localizer[SharedResources.InvalidPost]);
                 return userPostsR;
             }
             userPostsR.Message = $"The Posts for {user.FirstName} user are these....";
@@ -76,7 +83,7 @@ namespace ySite.Service.Services
         {
             if (dto == null || userId == null || (dto.Description == null && dto.ClientFile == null))
             {
-                return "Invalid Value";
+                return _localizer[SharedResources.Invalid];
             }
             var post = new PostModel();
             post.UserId = userId;
@@ -107,7 +114,7 @@ namespace ySite.Service.Services
             }
 
             if (await _postRepo.addPostAsync(post))
-                return "Added successfuly";
+                return _localizer[SharedResources.Added];
 
             return "Can not add this post";
         }
@@ -119,7 +126,11 @@ namespace ySite.Service.Services
 
             var post = await _postRepo.GetPostAsync(dto.Id);
             if (post == null)
-                return "Invalid Post";
+                return _localizer[SharedResources.InvalidPost];
+
+            if (post.UserId != userId)
+                return _localizer[SharedResources.NoPermission];
+
 
             if (dto.Description != null)
                 post.Description = dto.Description;
@@ -149,18 +160,23 @@ namespace ySite.Service.Services
             post.UpdatedOn = DateTime.UtcNow;
             _postRepo.updatePost(post);
 
-            return "Post Updated...";
+            return _localizer[SharedResources.Updated];
         }
 
         public async Task<string> DeletePost(int postId, string userId)
         {
             var user =await _authRepo.FindById(userId);
+            var userRoles =await _authRepo.GetUserRoles(user);
             if (user is null)
-                return "Invalid User";
+                return _localizer[SharedResources.InvalidUser];
             
             var post =await _postRepo.GetPostAsync(postId);
             if (post is null)
-                return "Invalid Post";
+                return _localizer[SharedResources.InvalidPost];
+
+            if (post.UserId != userId && !userRoles.Contains(UserRoles.OWNER))
+                return _localizer[SharedResources.NoPermission];
+
             var reactions = await _reactionRepo.GetReactionsOnPost(postId);
             var comments = await _commentRepo.GetCommentsOnPost(postId);
             post.IsDeleted = true;
@@ -179,7 +195,7 @@ namespace ySite.Service.Services
             
             _postRepo.updatePost(post);
 
-            return "this post deleted ...";
+            return _localizer[SharedResources.Deleted];
         }
     }
 }

@@ -84,8 +84,6 @@ namespace ySite.Core.StaticFiles
                 return ValidationResult.Success("video");
             }
             return ValidationResult.Fail($"Invalid file extension. Allowed extensions are {FilesSettings.AllowedImageExtensions} For Images and {FilesSettings.AllowedVideoExtensions} For videos.");
-
-          //  return ValidationResult.Success("video");
         }
 
 

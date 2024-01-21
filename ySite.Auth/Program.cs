@@ -27,6 +27,7 @@ public class Program
         builder.Services.AddApplicationIdentity();
         builder.Services.AddApplicationJwtAuth(builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>());
         builder.Services.ConfigureServices();
+        builder.Services.LocalizationServices();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -41,6 +42,16 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        var supportedCultures = new[] { "en-US", "ar" };
+
+        var localizationOptions =
+            new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            .AddSupportedCultures(supportedCultures)
+            .AddSupportedUICultures(supportedCultures);
+
+        app.UseRequestLocalization(localizationOptions);
+
         app.UseStaticFiles();
         app.UseHttpsRedirection();
 
