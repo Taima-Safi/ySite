@@ -17,6 +17,7 @@
 mono_crash.*
 
 ySite.UI/*
+Migrations/
 
 # Build results
 [Dd]ebug/
