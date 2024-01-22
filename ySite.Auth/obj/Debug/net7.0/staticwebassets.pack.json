@@ -17,8 +17,8 @@
       "PackagePath": "staticwebassets\\Images\\usersImages\\photo_2023-07-04_15-45-08.jpg"
     },
     {
-      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\usersImages\\tourism DataBase.PNG",
-      "PackagePath": "staticwebassets\\Images\\usersImages\\tourism DataBase.PNG"
+      "Id": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\usersImages\\tourismDataBase.PNG",
+      "PackagePath": "staticwebassets\\Images\\usersImages\\tourismDataBase.PNG"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.ySite.Auth.props",

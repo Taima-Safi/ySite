@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Pnuj39R7f9as4Ayg3h0ZkC3fCnOo5y/eXQbyHXj1txM=",
+  "Hash": "wDq/V8kElWaEZ48lhGnkNRXxNoNc0p2fgO1QtFx+AZU=",
   "Source": "ySite.Auth",
   "BasePath": "_content/ySite.Auth",
   "Mode": "Default",
@@ -85,12 +85,12 @@
       "OriginalItemSpec": "wwwroot\\Images\\usersImages\\photo_2023-07-04_15-45-08.jpg"
     },
     {
-      "Identity": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\usersImages\\tourism DataBase.PNG",
+      "Identity": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\Images\\usersImages\\tourismDataBase.PNG",
       "SourceId": "ySite.Auth",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\wwwroot\\",
       "BasePath": "_content/ySite.Auth",
-      "RelativePath": "Images/usersImages/tourism DataBase.PNG",
+      "RelativePath": "Images/usersImages/tourismDataBase.PNG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -99,7 +99,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\usersImages\\tourism DataBase.PNG"
+      "OriginalItemSpec": "wwwroot\\Images\\usersImages\\tourismDataBase.PNG"
     }
   ]
 }

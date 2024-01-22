@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Repository.RepoInterfaces;
 using Repository.Repos;
+using SixLabors.ImageSharp;
 using System.Globalization;
 using System.Security.Claims;
 using System.Text;
 using ySite.Core.Helper;
+using ySite.Core.StaticFiles;
 using ySite.Core.StaticUserRoles;
 using ySite.EF.DbContext;
 using ySite.EF.Entities;
@@ -56,7 +59,7 @@ namespace ySite.Service
 
             return services;
         }
-        public static IServiceCollection LocalizationServices(this IServiceCollection services)
+        public static IServiceCollection LocalizationServices(this IServiceCollection services, IConfigurationSection supportedLanguages)
         {
             services.AddLocalization();
             services.AddControllers()
@@ -66,23 +69,18 @@ namespace ySite.Service
                     factory.Create(typeof(JsonStringLocalizerFactory));
                 });
 
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en-US"),
-                    new CultureInfo("ar")
-                };
-                options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0]);
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-                //options.RequestCultureProviders = new List<IRequestCultureProvider>
-                // {
-                //    new QueryStringRequestCultureProvider(),
-                //    new HeaderR
-                //};
-            });
-
+            //services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    var supportedCultures = new[]
+            //    {
+            //        new CultureInfo("en-US"),
+            //        new CultureInfo("ar")
+            //    };
+            //    options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0]);
+            //    options.SupportedCultures = supportedCultures;
+            //    options.SupportedUICultures = supportedCultures;
+            //});
+            services.Configure<LocalizerStatics>(supportedLanguages);
             return services;
         }
         public static IServiceCollection ConfigureServices(this IServiceCollection services)

@@ -1453,6 +1453,11 @@
         },
         "runtime": {
           "ySite.Core.dll": {}
+        },
+        "resources": {
+          "ar/ySite.Core.resources.dll": {
+            "locale": "ar"
+          }
         }
       },
       "ySite.EF/1.0.0": {

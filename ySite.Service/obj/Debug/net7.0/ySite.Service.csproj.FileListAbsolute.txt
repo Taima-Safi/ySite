@@ -17,3 +17,4 @@ C:\Users\USER\source\repos\ySite\ySite.Service\bin\Debug\net7.0\Repository.dll
 C:\Users\USER\source\repos\ySite\ySite.Service\bin\Debug\net7.0\ySite.Core.dll
 C:\Users\USER\source\repos\ySite\ySite.Service\bin\Debug\net7.0\Repository.pdb
 C:\Users\USER\source\repos\ySite\ySite.Service\bin\Debug\net7.0\ySite.Core.pdb
+C:\Users\USER\source\repos\ySite\ySite.Service\bin\Debug\net7.0\ar\ySite.Core.resources.dll

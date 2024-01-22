@@ -101,3 +101,5 @@ C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\SixLabors.ImageShar
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\MediaToolkit.dll
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\libvideo.dll
 C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\FFmpeg.AutoGen.dll
+C:\Users\USER\source\repos\ySite\ySite.Auth\bin\Debug\net7.0\ar\ySite.Core.resources.dll
+C:\Users\USER\source\repos\ySite\ySite.Auth\obj\Debug\net7.0\ySite.Auth.MvcApplicationPartsAssemblyInfo.cs

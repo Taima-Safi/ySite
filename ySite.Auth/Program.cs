@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ySite.Core.StaticUserRoles;
 using ySite.Core;
+using Microsoft.Extensions.Options;
+using ySite.Core.StaticFiles;
 
 public class Program
 {
@@ -27,7 +29,7 @@ public class Program
         builder.Services.AddApplicationIdentity();
         builder.Services.AddApplicationJwtAuth(builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>());
         builder.Services.ConfigureServices();
-        builder.Services.LocalizationServices();
+        builder.Services.LocalizationServices(builder.Configuration.GetSection("SupportedLanguages"));
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,14 +45,12 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        var supportedCultures = new[] { "en-US", "ar" };
+        var localizationOptions = builder.Services.BuildServiceProvider().GetService<IOptions<LocalizerStatics>>().Value;
 
-        var localizationOptions =
-            new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
-            .AddSupportedCultures(supportedCultures)
-            .AddSupportedUICultures(supportedCultures);
-
-        app.UseRequestLocalization(localizationOptions);
+        app.UseRequestLocalization(new RequestLocalizationOptions()
+            .SetDefaultCulture(localizationOptions.SupportedCultures[0])
+            .AddSupportedCultures(localizationOptions.SupportedCultures)
+            .AddSupportedUICultures(localizationOptions.SupportedCultures));
 
         app.UseStaticFiles();
         app.UseHttpsRedirection();
