@@ -20,9 +20,7 @@ namespace ySite.Core.StaticFiles
         public const string AllowedVideoExtensions = ".mp4,.mov,.avi,.mkv,.wmv";
         public const int MaxFileSizeInMB = 5;
         public const int MaxFileSizeInBytes = MaxFileSizeInMB * 1024 * 1024;
-        // public TimeSpan maxDuration = TimeSpan.FromMinutes(240);
         public const int MaxVideoSizeInBytes = 50 * 1024 * 1024;
-        public const int MaxVideoDurationInSeconds = 300; // 5 minutes (adjust as needed)
 
         public const int MaxWidthInPX = 2500;
         public const int MaxHightInPX = 2500;
