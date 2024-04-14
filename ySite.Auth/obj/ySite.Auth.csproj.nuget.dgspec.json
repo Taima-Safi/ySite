@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj": {}
+    "C:\\repos(oldLap)\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj": {
+    "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\obj\\",
+        "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\repos(oldLap)\\repos\\ySite\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,17 +26,19 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\HP\\Downloads\\Telegram Desktop\\CraftLab.Core": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj"
               },
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj"
               }
             }
           }
@@ -45,6 +47,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -79,29 +86,43 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj": {
+    "C:\\repos(oldLap)\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj",
+        "projectUniqueName": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj",
         "projectName": "ySite.Auth",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Auth\\obj\\",
+        "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Auth\\ySite.Auth.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -110,23 +131,25 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\HP\\Downloads\\Telegram Desktop\\CraftLab.Core": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj"
               },
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj"
               },
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj"
               },
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Service\\ySite.Service.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Service\\ySite.Service.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.Service\\ySite.Service.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Service\\ySite.Service.csproj"
               }
             }
           }
@@ -135,6 +158,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -171,6 +199,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -179,24 +225,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
+    "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj",
+        "projectUniqueName": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj",
         "projectName": "ySite.Core",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\obj\\",
+        "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -205,6 +251,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\HP\\Downloads\\Telegram Desktop\\CraftLab.Core": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -217,6 +265,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -259,29 +312,43 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
+    "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj",
+        "projectUniqueName": "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj",
         "projectName": "ySite.EF",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\obj\\",
+        "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -290,6 +357,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\HP\\Downloads\\Telegram Desktop\\CraftLab.Core": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -302,6 +371,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -342,29 +416,43 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Service\\ySite.Service.csproj": {
+    "C:\\repos(oldLap)\\repos\\ySite\\ySite.Service\\ySite.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Service\\ySite.Service.csproj",
+        "projectUniqueName": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Service\\ySite.Service.csproj",
         "projectName": "ySite.Service",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Service\\ySite.Service.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Service\\obj\\",
+        "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Service\\ySite.Service.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -373,20 +461,22 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\HP\\Downloads\\Telegram Desktop\\CraftLab.Core": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\Repository\\Repository.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\Repository\\Repository.csproj"
               },
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.Core\\ySite.Core.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.Core\\ySite.Core.csproj"
               },
-              "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\ySite\\ySite.EF\\ySite.EF.csproj"
+              "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj": {
+                "projectPath": "C:\\repos(oldLap)\\repos\\ySite\\ySite.EF\\ySite.EF.csproj"
               }
             }
           }
@@ -395,6 +485,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -429,12 +524,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

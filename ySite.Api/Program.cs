@@ -1,17 +1,5 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Repository.RepoInterfaces;
-using Repository.Repos;
-using System.Globalization;
-using System.Text;
 using ySite.Core.StaticUserRoles;
-using ySite.EF.DbContext;
-using ySite.EF.Entities;
 using ySite.Service;
-using ySite.Service.Interfaces;
-using ySite.Service.Services;
 
 public class Program
 {
@@ -26,7 +14,7 @@ public class Program
         builder.Services.AddApplicationJwtAuth(builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>());
         builder.Services.AddApplicationAuthorization(); //this for policies
         builder.Services.ConfigureServices();
-        builder.Services.LocalizationServices();
+        builder.Services.LocalizationServices(builder.Configuration.GetSection("SupportedLanguages"));
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -60,7 +48,7 @@ public class Program
         app.MapControllers();
 
         app.UseCors("AllowSpecificOrigin");
-       // await app.SeedDataAsync();
+        // await app.SeedDataAsync();
 
         app.Run();
     }
