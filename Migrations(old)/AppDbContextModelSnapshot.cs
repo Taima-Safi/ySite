@@ -296,7 +296,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("ySite.EF.Entities.FriendShipModel", b =>
@@ -330,7 +330,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FriendShips");
+                    b.ToTable("FriendShips", (string)null);
                 });
 
             modelBuilder.Entity("ySite.EF.Entities.PostModel", b =>
@@ -373,7 +373,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("ySite.EF.Entities.ReactOnCommentModel", b =>
@@ -409,7 +409,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReactOnComments");
+                    b.ToTable("ReactOnComments", (string)null);
                 });
 
             modelBuilder.Entity("ySite.EF.Entities.ReactOnReplayModel", b =>
@@ -445,7 +445,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReactOnReplays");
+                    b.ToTable("ReactOnReplays", (string)null);
                 });
 
             modelBuilder.Entity("ySite.EF.Entities.ReactionModel", b =>
@@ -481,7 +481,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reactions");
+                    b.ToTable("Reactions", (string)null);
                 });
 
             modelBuilder.Entity("ySite.EF.Entities.ReplayModel", b =>
@@ -523,7 +523,7 @@ namespace ySite.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Replays");
+                    b.ToTable("Replays", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -579,7 +579,7 @@ namespace ySite.EF.Migrations
 
             modelBuilder.Entity("ySite.EF.Entities.ApplicationUser", b =>
                 {
-                    b.OwnsMany("ySite.EF.Entities.RefreshTokenModel", "RefreshTokens", b1 =>
+                    b.OwnsMany("ySite.EF.Entities.ApplicationUser.RefreshTokens#ySite.EF.Entities.RefreshTokenModel", "RefreshTokens", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -605,7 +605,7 @@ namespace ySite.EF.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("RefreshTokenModel");
+                            b1.ToTable("RefreshTokenModel", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");
@@ -666,9 +666,9 @@ namespace ySite.EF.Migrations
             modelBuilder.Entity("ySite.EF.Entities.ReactOnCommentModel", b =>
                 {
                     b.HasOne("ySite.EF.Entities.CommentModel", "Comment")
-                        .WithMany("ReactonOnComments")
+                        .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ySite.EF.Entities.ApplicationUser", "User")
@@ -685,9 +685,9 @@ namespace ySite.EF.Migrations
             modelBuilder.Entity("ySite.EF.Entities.ReactOnReplayModel", b =>
                 {
                     b.HasOne("ySite.EF.Entities.ReplayModel", "Replay")
-                        .WithMany("ReactOnReplays")
+                        .WithMany()
                         .HasForeignKey("ReplayId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ySite.EF.Entities.ApplicationUser", "User")
@@ -723,9 +723,9 @@ namespace ySite.EF.Migrations
             modelBuilder.Entity("ySite.EF.Entities.ReplayModel", b =>
                 {
                     b.HasOne("ySite.EF.Entities.CommentModel", "Comment")
-                        .WithMany("Replys")
+                        .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ySite.EF.Entities.ApplicationUser", "User")
@@ -746,23 +746,11 @@ namespace ySite.EF.Migrations
                     b.Navigation("Reactions");
                 });
 
-            modelBuilder.Entity("ySite.EF.Entities.CommentModel", b =>
-                {
-                    b.Navigation("ReactonOnComments");
-
-                    b.Navigation("Replys");
-                });
-
             modelBuilder.Entity("ySite.EF.Entities.PostModel", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Reactions");
-                });
-
-            modelBuilder.Entity("ySite.EF.Entities.ReplayModel", b =>
-                {
-                    b.Navigation("ReactOnReplays");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,20 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Repository.RepoInterfaces;
-using Repository.Repos;
-using ySite.EF.DbContext;
-using ySite.EF.Entities;
-using ySite.Service;
-using ySite.Service.Interfaces;
-using ySite.Service.Services;
-using ySite.Service;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using ySite.Core.StaticUserRoles;
-using ySite.Core;
 using Microsoft.Extensions.Options;
 using ySite.Core.StaticFiles;
+using ySite.Core.StaticUserRoles;
+using ySite.Service;
 
 public class Program
 {
@@ -61,7 +49,8 @@ public class Program
         app.MapControllers();
 
         app.UseCors("AllowSpecificOrigin");
-      // await app.SeedDataAsync(Contoller.Replay);
+        // await app.SeedDataAsync(Contoller.Replay);
+        //await app.SeedDataAsync();
 
         app.Run();
     }

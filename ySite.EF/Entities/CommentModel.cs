@@ -21,4 +21,7 @@ public class CommentModel
     public ApplicationUser User { get; set; }
     public PostModel Post { get; set; }
 
+    public ICollection<ReactOnCommentModel> ReactonOnComments { get; set; }
+    public ICollection<ReplayModel> Replys { get; set; }
+
 }

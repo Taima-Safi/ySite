@@ -23,6 +23,7 @@ public class PostsController : BaseController
     }
 
     [HttpGet("GetUserPosts")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetPostsAsync()
     {
         var userId = GetUserId();
@@ -30,6 +31,7 @@ public class PostsController : BaseController
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> AddPostAsync([FromForm] PostDto dto)
     {
         var userId = GetUserId();
@@ -37,6 +39,7 @@ public class PostsController : BaseController
     }
 
     [HttpPut]
+    [AllowAnonymous]
     //[Authorize(Policy = Policies.EditPostPolicy)]
     public async Task<IActionResult> EditPostAsync([FromForm] UpdatePostDto dto, int postId)
     {
@@ -45,6 +48,7 @@ public class PostsController : BaseController
     }
 
     [HttpDelete]
+    [AllowAnonymous]
     // [Authorize(Policy = Policies.DeletePostPolicy)]
     public async Task<IActionResult> DeletePostAsync(int postId)
     {

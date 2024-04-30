@@ -15,5 +15,7 @@
         public ApplicationUser User { get; set; }
         public CommentModel Comment { get; set; }
 
+        public ICollection<ReactOnReplayModel> ReactOnReplays { get; set; }
+
     }
 }

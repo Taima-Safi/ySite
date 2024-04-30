@@ -1,13 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using ySite.EF.Entities;
-using static System.Collections.Specialized.BitVector32;
 
 namespace ySite.EF.DbContext
 {
@@ -39,7 +32,25 @@ namespace ySite.EF.DbContext
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PostId)
                 .OnDelete(DeleteBehavior.NoAction); // Change to Restrict or other appropriate action
-            
+
+            builder.Entity<ReactOnCommentModel>()
+                .HasOne(c => c.Comment)
+                .WithMany(p => p.ReactonOnComments)
+                .HasForeignKey(c => c.CommentId)
+                .OnDelete(DeleteBehavior.NoAction); // Change to Restrict or other appropriate action
+
+            builder.Entity<ReplayModel>()
+                .HasOne(r => r.Comment)
+                .WithMany(r => r.Replys)
+                .HasForeignKey(r => r.CommentId)
+                .OnDelete(DeleteBehavior.NoAction); // Change to Restrict or other appropriate action
+
+
+            builder.Entity<ReactOnReplayModel>()
+                .HasOne(r => r.Replay)
+                .WithMany(p => p.ReactOnReplays)
+                .HasForeignKey(r => r.ReplayId)
+                .OnDelete(DeleteBehavior.Restrict); // Set the delete behavior to Restrict (NO ACTION)
 
             builder.Entity<ReactionModel>()
                 .HasOne(r => r.Post)
